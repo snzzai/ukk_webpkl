@@ -10,6 +10,8 @@ use App\Livewire\Guru\View as GuruView;
 use App\Livewire\Industri\Form as IndustriForm;
 use App\Livewire\Industri\View as IndustriView;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\PKL\Form as PKLForm;
+use App\Livewire\PKL\View as PKLView;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +28,10 @@ Route::view('guru', 'guru')
     Route::view('industri', 'industri')
     ->middleware(['auth', 'verified', 'check.roles'])
     ->name('industri');
+
+Route::view('pkl', 'pkl')
+    ->middleware(['auth', 'verified'])
+    ->name('pkl');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -47,6 +53,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/industri/show/{id}', IndustriView::class)->name('industri.show');
     Route::get('/industri/create', IndustriForm::class)->name('industri.create');
     Route::get('/industri/edit/{id}', IndustriForm::class)->name('industri.edit');
+    Route::get('/pkl/show/{id}', PKLView::class)->name('pkl.show');
+    Route::get('/pkl/create', PKLForm::class)->name('pkl.create');
+    Route::get('/pkl/edit/{id}', PKLForm::class)->name('pkl.edit');
 
 
 });

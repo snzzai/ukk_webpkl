@@ -80,6 +80,6 @@ class SiswaSeeder extends Seeder
             ['nama' => 'ZULAYKHA WARDHANI', 'nis' => '20459', 'gender' => 'P', 'alamat' => 'Alamat siswa', 'kontak' => '1234567890', 'email' => 'zulaykha@example.com', 'status_pkl' => false],
         ];
 
-        DB::table('siswa')->insert($data);
+        DB::table('siswas')->insert($data);
     }
 }

@@ -1,138 +1,117 @@
 <?php
 
-
 namespace App\Filament\Resources;
-
 
 use App\Filament\Resources\SiswaResource\Pages;
 use App\Filament\Resources\SiswaResource\RelationManagers;
 use App\Models\Siswa;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-
 class SiswaResource extends Resource
 {
     protected static ?string $model = Siswa::class;
-    protected static ?string $navigationLabel = 'Siswa';
-    protected static ?string $pluralLabel = 'Siswa';
-    protected static ?string $navigationIcon = 'heroicon-o-user';
 
+    protected static ?string $navigationLabel = 'Data Siswa';
+    
+    protected static ?string $pluralLabel = 'Daftar Data Siswa';
+
+    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
     public static function form(Form $form): Form
-{
-    return $form
-        ->schema([
-            Forms\Components\TextInput::make('nama')
-                ->required()
-                ->maxLength(255),
+    {
+        return $form
+            ->schema([
+                FileUpload::make('foto')
+                    ->label('Foto Siswa')
+                    ->image()
+                    ->disk('public')
+                    ->directory('foto_siswa') 
+                    ->imagePreviewHeight('150')
+                    ->loadingIndicatorPosition('left')
+                    ->uploadProgressIndicatorPosition('left')
+                    ->removeUploadedFileButtonPosition('right')
+                    ->downloadable()
+                    ->openable()
+                    ->columnSpanFull()
+                    ->required(), 
+                
+                TextInput::make('nama')->required()->label('Nama Siswa'),
+                
+                TextInput::make('nis')->required()->unique()->label('NIS'),
+                
+                Select::make('gender')
+                    ->options(['L' => 'Laki-laki', 'P' => 'Perempuan'])
+                    ->label('Jenis Kelamin')
+                    ->required(),
+                
+                Textarea::make('alamat')->required()->label('Alamat'),
+                
+                TextInput::make('kontak')->required()->label('Kontak'),
+                
+                TextInput::make('email')->email()->required()->label('Email')->unique(),
+                
+                Select::make('status_pkl')
+                    ->options([false => 'Belum diterima PKL', true => 'Sudah diterima PKL'])
+                    ->default(false)
+                    ->required()
+                    ->label('Status PKL'),
+            ]);
+    }
 
-
-            Forms\Components\TextInput::make('nis')
-                ->required()
-                ->unique(ignoreRecord: true, column: 'nis', table: 'siswas')
-                ->maxLength(255)
-                ->validationMessages([
-                'unique' => 'NIS sudah dipakai.',
-            ]),
-
-
-            Forms\Components\Select::make('gender')
-                ->required()
-                ->options([
-                    'L' => 'Laki-laki',
-                    'P' => 'Perempuan',
-                ]),
-
-
-            Forms\Components\TextInput::make('alamat')
-                ->required()
-                ->maxLength(255),
-
-
-            Forms\Components\TextInput::make('kontak')
-                ->required()
-                ->tel()
-                ->maxLength(255),
-
-
-            Forms\Components\TextInput::make('email')
-                ->required()
-                ->email()
-                ->unique(ignoreRecord: true)
-                ->maxLength(255)
- 
-               
-        ]);
-}
-
-
-
-
-public static function table(Table $table): Table
-{
-    return $table
-        ->columns([
-            Tables\Columns\TextColumn::make('nama')
-                ->label('Nama')
-                ->searchable()
-                ->sortable(),
-
-
-            Tables\Columns\TextColumn::make('nis')
-                ->label('NIS')
-                ->searchable()
-                ->sortable(),
-
-
-            Tables\Columns\TextColumn::make('gender')
-                ->label('Jenis Kelamin')
-                ->sortable()
-                ->formatStateUsing(fn ($state) => $state === 'L' ? 'Laki-laki' : 'Perempuan'),
-
-
-            Tables\Columns\TextColumn::make('alamat')
-                ->label('Alamat')
-                ->limit(30),
-
-
-            Tables\Columns\TextColumn::make('kontak')
-                ->label('Kontak'),
-
-
-            Tables\Columns\TextColumn::make('email')
-                ->label('Email')
-                ->searchable(),
-
-
-                Tables\Columns\TextColumn::make('status_pkl')
-                ->label('Status PKL')
-                ->badge()
-                ->formatStateUsing(fn ($record) => $record->status_pkl ? 'true' : 'false')
-                ->colors([
-                    'success' => fn ($state) => $state === 'true' ? 'green' : null,
-                    'danger' => fn ($state) => $state === 'false' ? 'red' : null,
-                ]),
-           
-        ])
-        ->filters([
-            //
-        ])
-        ->actions([
-            Tables\Actions\EditAction::make(),
-        ])
-        ->bulkActions([
-            Tables\Actions\BulkActionGroup::make([
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                ImageColumn::make('foto')
+                    ->label('Foto Siswa')
+                    ->height(40)
+                    ->circular(),
+                TextColumn::make('nama')->label('Nama'),
+                TextColumn::make('nis')->label('NIS'),
+                TextColumn::make('ketGender')
+                    ->label('Jenis Kelamin'),
+                TextColumn::make('alamat')->label('Alamat'),
+                TextColumn::make('kontak')->label('Kontak'),
+                TextColumn::make('email')->label('Email'),
+                IconColumn::make('status_pkl')
+                    ->label('Status Lapor PKL')
+                    ->alignCenter()
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('danger'),
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make()->label('Lihat Detail'),
+                    Tables\Actions\EditAction::make()->label('Ubah Data'),
+                    Tables\Actions\DeleteAction::make()->label('Hapus Data'),
+                ])
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
                 Tables\Actions\DeleteBulkAction::make(),
             ]),
         ]);
-}
-
+    }
 
     public static function getRelations(): array
     {
@@ -140,7 +119,6 @@ public static function table(Table $table): Table
             //
         ];
     }
-
 
     public static function getPages(): array
     {
