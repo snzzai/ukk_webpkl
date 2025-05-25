@@ -97,7 +97,7 @@
                     <h4 class="font-semibold text-amber-900 text-sm mb-3">Statistik Cepat</h4>
                     <div class="grid grid-cols-2 gap-3">
                         <div class="bg-white/60 rounded-lg p-2 text-center">
-                            <div class="text-lg font-bold text-[#FEA1A1]">24</div>
+                            <div class="text-lg font-bold text-[#FEA1A1]">72</div>
                             <div class="text-xs text-amber-700">Siswa</div>
                         </div>
                         <div class="bg-white/60 rounded-lg p-2 text-center">

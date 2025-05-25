@@ -1,14 +1,14 @@
 <div class="p-4">
     <div class="relative mb-6 w-full grid grid-cols-12 gap-4">
         <div class="col-span-12 md:col-span-6 flex justify-start items-center">
-            <a href="{{ route('siswa.create') }}" class="bg-[#FEA1A1] text-white px-6 py-3 rounded-md hover:bg-[#F9FBE7] transition duration-200">
+            <a href="{{ route('siswa.create') }}" class="bg-[#FEA1A1] text-[#fdfdfa] px-6 py-3 rounded-md hover:bg-[#FD6F6F] transition duration-200 shadow-[5px_5px_5px_#ECCDB4]">
                 Tambah Siswa
             </a>
         </div>
         <div class="col-span-12 md:col-span-6 flex justify-between items-center space-x-4">
             <!-- Search form -->
-            <div class="flex items-center space-x-2">
-                <label for="search" class="text-sm font-medium text-[#FEA1A1]">Search:</label>
+            <div class="flex items-center space-x-2 shadow-[5px_5px_5px_#ECCDB4] rounded-lg bg-[#F9FBE7]">
+                <label for="search" class="text-sm font-medium text-[#FEA1A1] ml-3">Search:</label>
                 <input wire:model.live="search" id="search" type="text" placeholder="Search siswa..." class="w-full md:w-72 px-4 py-2 border border-[#F0EDD4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F9FBE7] transition duration-150 ease-in-out">
             </div>
         </div>
@@ -21,9 +21,9 @@
         </div>
     @endif
 
-    <div class="overflow-x-auto bg-[#F9FBE7] shadow-sm rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-[#333333] dark:text-gray-400">
-            <thead class="text-xs text-[#F0EDD4] uppercase bg-[#ECCDB4]">
+    <div class="overflow-x-auto bg-[#F9FBE7] shadow-sm rounded-lg ">
+        <table class="w-full text-sm text-left rtl:text-right text-[#333333] dark:text-gray-400 ">
+            <thead class="text-xs text-[#fdfdfa] uppercase bg-[#ECCDB4]">
                 <tr>
                     <th scope="col" class="px-6 py-3">Nama</th>
                     <th scope="col" class="px-6 py-3">NIS</th>
@@ -60,7 +60,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5" class="text-center py-4">Tidak ada data ditemukan.</td>
+                        <td colspan="5" class="text-center py-4 text-[FEA1A1]">Tidak ada data ditemukan.</td>
                     </tr>
                 @endif
             </tbody>
@@ -73,19 +73,22 @@
             <!-- Page Size Selection -->
             <div class="flex items-center space-x-2">
                 <label for="perPage" class="text-sm font-medium text-[#FEA1A1]">Tampilkan:</label>
-                <select wire:model="numpage" wire:change="updatePageSize($event.target.value)" id="perPage" class="px-3 py-2 border rounded-md bg-[#F9FBE7] text-[#333333]">
+                <select wire:model="numpage" wire:change="updatePageSize($event.target.value)" id="perPage" class="px-3 py-2 border rounded-md bg-[#FEA1A1] text-[#fdfdfa]">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="{{ $siswaList->total() }}">semua</option>
                 </select>
-                <span class="text-sm text-[#333333]">data per halaman</span>
+                <span class="text-sm text-[#FEA1A1]">data per halaman</span>
             </div>
 
             <!-- Pagination Controls -->
-            <div class="flex justify-end">
-                {{ $siswaList->links() }}
+        <div class="flex justify-end mt-4">
+            <div class="bg-white rounded-md shadow-md p-2">
+               {{ $siswaList->links() }}
             </div>
+        </div>
+
         </div>
     </div>
 </div>
