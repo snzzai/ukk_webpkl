@@ -63,8 +63,8 @@
                         <div class="mb-2">
                             <h3 class="text-xs font-semibold text-amber-800 uppercase tracking-wider px-2 py-1 bg-[#F0EDD4]/50 rounded-md">{{ __('Data Personal') }}</h3>
                         </div>
-                        <flux:navlist.item icon="user" :href="route('siswa')" :current="request()->routeIs('siswa')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 ml-2">{{ __('Siswa') }}</flux:navlist.item>
-                        <flux:navlist.item icon="academic-cap" :href="route('guru')" :current="request()->routeIs('guru')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 ml-2">{{ __('Guru') }}</flux:navlist.item>
+                        <flux:navlist.item icon="user" :href="route('siswa')" :current="request()->routeIs('siswa')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 mx-auto">{{ __('Siswa') }}</flux:navlist.item>
+                        <flux:navlist.item icon="academic-cap" :href="route('guru')" :current="request()->routeIs('guru')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 mx-auto">{{ __('Guru') }}</flux:navlist.item>
                     </flux:navlist.group>
                 </flux:navlist>
 
@@ -73,8 +73,8 @@
                         <div class="mb-2">
                             <h3 class="text-xs font-semibold text-amber-800 uppercase tracking-wider px-2 py-1 bg-[#F0EDD4]/50 rounded-md">{{ __('Data PKL') }}</h3>
                         </div>
-                        <flux:navlist.item icon="building-office-2" :href="route('industri')" :current="request()->routeIs('industri')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 ml-2">{{ __('Industri') }}</flux:navlist.item>
-                        <flux:navlist.item icon="briefcase" :href="route('pkl')" :current="request()->routeIs('pkl')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 ml-2">{{ __('Status PKL') }}</flux:navlist.item>
+                        <flux:navlist.item icon="building-office-2" :href="route('industri')" :current="request()->routeIs('industri')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 mx-auto">{{ __('Industri') }}</flux:navlist.item>
+                        <flux:navlist.item icon="briefcase" :href="route('pkl')" :current="request()->routeIs('pkl')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 mx-auto">{{ __('Status PKL') }}</flux:navlist.item>
                     </flux:navlist.group>
                 </flux:navlist>
 
@@ -82,10 +82,10 @@
                 <flux:navlist variant="outline" class="bg-white/40 dark:bg-white/20 rounded-lg p-2 shadow-sm">
                     <flux:navlist.group :heading="__('Data Khusus Admin')" class="grid">
                         <div class="mb-2">
-                            <h3 class="text-xs font-semibold text-amber-800 uppercase tracking-wider px-2 py-1 bg-[#FEA1A1]/30 rounded-md">{{ __('Data Khusus Admin') }}</h3>
+                            <h3 class="text-xs font-semibold text-amber-800 uppercase tracking-wider px-2 py-2 bg-[#FEA1A1]/30 rounded-md">{{ __('Data Khusus Admin') }}</h3>
                         </div>
-                        <flux:navlist.item icon="user" :href="route('siswa')" :current="request()->routeIs('user')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 ml-2">{{ __('User') }}</flux:navlist.item>
-                        <flux:navlist.item icon="shield-check" :href="route('siswa')" :current="request()->routeIs('role')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 ml-2">{{ __('Tipe Akun (Role)') }}</flux:navlist.item>
+                        <flux:navlist.item icon="user" :href="route('siswa')" :current="request()->routeIs('user')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 mx-auto">{{ __('User') }}</flux:navlist.item>
+                        <flux:navlist.item icon="shield-check" :href="route('siswa')" :current="request()->routeIs('role')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 mx-auto">{{ __('Tipe Akun (Role)') }}</flux:navlist.item>
                     </flux:navlist.group>
                 </flux:navlist>
                 @endif

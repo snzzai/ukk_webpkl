@@ -17,25 +17,25 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::view('dashboard', 'dashboard')
+    ->middleware(['auth', 'verified', 'check.roles'])
+    ->name('dashboard');
+
 Route::view('siswa', 'siswa')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', 'check.roles'])
     ->name('siswa');
 
 Route::view('guru', 'guru')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', 'check.roles'])
     ->name('guru');
 
-    Route::view('industri', 'industri')
+Route::view('industri', 'industri')
     ->middleware(['auth', 'verified', 'check.roles'])
     ->name('industri');
 
 Route::view('pkl', 'pkl')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', 'check.roles'])
     ->name('pkl');
-
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

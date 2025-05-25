@@ -27,8 +27,9 @@ class Index extends Component
 
     public function render()
     {
-        $user = Auth::user();
+        $user = Auth::user(); // mengisi variabel user
 
+        // jika yang login Siswa, yang ditampilkan adalah data  diri sendiri berdasarkan email yang sedang login.
         if ($user->hasRole('Siswa')) {
             $siswaList = Siswa::where('email', $user->email)->get();
 

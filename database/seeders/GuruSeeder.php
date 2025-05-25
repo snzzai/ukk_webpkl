@@ -22,6 +22,6 @@ class GuruSeeder extends Seeder
             ['nama' => 'Ratna Yunitasari', 'nip' => '19710601 202121 2 002', 'gender' => 'P', 'alamat' => 'Alamat guru', 'kontak' => '08983436346', 'email' => 'ratna@example.com'],
         ];
 
-        DB::table('guru')->insert($data);
+        DB::table('gurus')->insert($data);
     }
 }
