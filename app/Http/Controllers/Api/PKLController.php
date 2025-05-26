@@ -37,7 +37,7 @@ class PKLController extends Controller
      */
     public function show(string $id)
     {
-        $pkl = PKL::with('siswa', 'guru','industri')->find($id);
+        $pkl = PKL::with('siswas', 'gurus','industris')->find($id);
 
         if (!$pkl) {
             return response()->json(['message' => 'Data PKL tidak ditemukan'], 404);
@@ -72,7 +72,7 @@ class PKLController extends Controller
 
         $pkl->update($request->all());
 
-        $pkl->load('siswa', 'guru', 'industri');
+        $pkl->load('siswas', 'gurus', 'industris');
 
         return response()->json([
             'message' => 'Data PKL berhasil diperbarui',

@@ -5,11 +5,11 @@
                 Tambah Siswa
             </a>
         </div>
-        <div class="col-span-12 md:col-span-6 flex justify-between items-center space-x-4">
+        <div class="col-span-12 md:col-span-6 flex justify-end items-center space-x-4">
             <!-- Search form -->
             <div class="flex items-center space-x-2 shadow-[5px_5px_5px_#ECCDB4] rounded-lg bg-[#F9FBE7]">
                 <label for="search" class="text-sm font-medium text-[#FEA1A1] ml-3">Search:</label>
-                <input wire:model.live="search" id="search" type="text" placeholder="Search siswa..." class="w-full md:w-72 px-4 py-2 border border-[#F0EDD4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F9FBE7] transition duration-150 ease-in-out">
+                <input wire:model.live="search" id="search" type="text" placeholder="Search siswa..." class="text-[#e57163] w-full md:w-72 px-4 py-2 border border-[#F0EDD4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F9FBE7] transition duration-150 ease-in-out ">
             </div>
         </div>
     </div>
@@ -83,8 +83,8 @@
             </div>
 
             <!-- Pagination Controls -->
-        <div class="flex justify-end mt-4">
-            <div class="bg-white rounded-md shadow-md p-2">
+        <div class="flex justify-end mt-4 text-[FEA1A1]">
+            <div class="bg-[#F9FBE7] rounded-md shadow-md p-2">
                {{ $siswaList->links() }}
             </div>
         </div>

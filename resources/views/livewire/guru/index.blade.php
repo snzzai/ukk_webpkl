@@ -1,25 +1,25 @@
 <div class="p-4">
     <div class="relative mb-6 w-full grid grid-cols-12 gap-4">
         <div class="col-span-12 md:col-span-6 flex justify-start items-center">
-            <a href="{{ route('guru.create') }}" class="bg-gray-600 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition duration-200">
+            <a href="{{ route('guru.create') }}" class="bg-[#FEA1A1] text-[#fdfdfa] px-6 py-3 rounded-md hover:bg-[#FD6F6F] transition duration-200 shadow-[5px_5px_5px_#ECCDB4]">
                 Tambah Guru
             </a>
         </div>
         <div class="col-span-12 md:col-span-6 flex justify-between items-center space-x-4">
-            <div class="flex items-center space-x-2">
-                <label for="search" class="text-sm font-medium text-gray-700">Search:</label>
-                <input wire:model.live="search" id="search" type="text" placeholder="Search guru..." class="w-full md:w-72 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-150 ease-in-out">
+            <div class="flex items-center space-x-2 shadow-[5px_5px_5px_#ECCDB4] rounded-lg bg-[#F9FBE7]">
+                <label for="search" class="text-sm font-medium text-[#FEA1A1] ml-3">Search:</label>
+                <input wire:model.live="search" id="search" type="text" placeholder="Search siswa..." class="text-[#e57163] w-full md:w-72 px-4 py-2 border border-[#F0EDD4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F9FBE7] transition duration-150 ease-in-out ">
             </div>
         </div>
     </div>
     @if (session()->has('message'))
-        <div class="bg-gray-200 text-gray-700 p-2 mb-4 rounded text-center">
+        <div class="bg-[#F9FBE7] text-[#FEA1A1] p-2 mb-4 rounded text-center">
             {{ session('message') }}
         </div>
     @endif
-    <div class="overflow-x-auto bg-white shadow-sm rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <div class="overflow-x-auto bg-[#F9FBE7] shadow-sm rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-[#333333] dark:text-gray-400">
+            <thead class="text-xs text-[#fdfdfa] uppercase bg-[#ECCDB4]">
                 <tr>
                     <th scope="col" class="px-6 py-3">Nama</th>
                     <th scope="col" class="px-6 py-3">NIP</th>
@@ -31,7 +31,7 @@
             <tbody>
                 @if ($guruList && $guruList->count())
                     @foreach ($guruList as $guru)
-                    <tr class="border-b hover:bg-gray-50 transition duration-200">
+                    <tr class="border-b hover:bg-[#F0EDD4] transition duration-200">
                         <td class="px-6 py-3">{{ $guru->nama }}</td>
                         <td class="px-6 py-3">{{ $guru->nip }}</td>
                         <td class="px-6 py-3">{{ $guru->kontak }}</td>
@@ -56,7 +56,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5" class="text-center py-4">Tidak ada data ditemukan.</td>
+                        <td colspan="5" class="text-center py-4 text-[FEA1A1]">Tidak ada data ditemukan.</td>
                     </tr>
                 @endif
             </tbody>

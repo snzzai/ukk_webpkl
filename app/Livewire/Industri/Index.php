@@ -26,20 +26,22 @@ class Index extends Component
     }
 
     public function render()
-    {
-        $query = Industri::query();
-        
-        if (!empty($this->search)) {
-        $query->join('guru', 'industri.guru_pembimbing', '=', 'guru.id')
-                ->where('industri.nama', 'like', '%' . $this->search . '%')
-                ->orWhere('guru.nama', 'like', '%' . $this->search . '%');
-        }
+{
+    $query = Industri::with('guru'); // Pastikan baris ini ada
 
-        $this->industriList = $query->select('industri.*')->paginate($this->numpage);
-
-        return view('livewire.industri.index', [
-            'industriList' => $this->industriList,
-        ]);
+    if (!empty($this->search)) {
+        $query->where('nama', 'like', '%' . $this->search . '%')
+              ->orWhereHas('guru', function ($q) {
+                  $q->where('nama', 'like', '%' . $this->search . '%');
+              });
     }
+
+    $this->industriList = $query->paginate($this->numpage);
+
+    return view('livewire.industri.index', [
+        'industriList' => $this->industriList,
+    ]);
+}
+
 
 }

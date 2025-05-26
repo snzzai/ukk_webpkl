@@ -1,4 +1,4 @@
-<div class="p-6 max-w-3xl mx-auto bg-white shadow-lg rounded-lg">
+<div class="p-6 max-w-3xl mx-auto shadow-lg rounded-lg" style="background: linear-gradient(to right, #F9FBE7, #F0EDD4);">
     <h2 class="text-2xl font-semibold mb-6 text-center">
         {{ $id ? 'Edit Laporan' : 'Lapor PKL' }}
     </h2>
