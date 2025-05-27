@@ -11,7 +11,7 @@
   }
   body {
     font-family: 'Quicksand', sans-serif;
-    background-color: #F3F3F3; /* Light Grey */
+    background: linear-gradient(to right, #F9FBE7, #F0EDD4); /* Light Grey */
     color: #000014; /* Default black */
     line-height: 1.5;
     min-height: 100vh;
@@ -279,8 +279,8 @@ p.description {
     cursor: pointer;
     overflow: hidden;
     border-radius: 10px;
-    box-shadow: 0 0 22px #000014aa;
-    color: #FDFDFD;
+    box-shadow: 0 0 20px #ECCDB4;
+    color: #ECCDB4;
     background-size: cover;
     background-position: center;
     min-height: 230px;
@@ -293,7 +293,7 @@ p.description {
   }
   .card:hover {
     transform: scale(1.06);
-    box-shadow: 0 0 28px #0043F1cc;
+    box-shadow: 0 0 28px #ECCDB4;
   }
   .card .plus {
     position: absolute;
@@ -310,9 +310,11 @@ p.description {
     cursor: pointer;
     user-select: none;
     transition: background-color 0.3s ease;
+    box-shadow: 0 0 15px #FEA1A1;
+    color: #FEA1A1;
   }
   .card .plus:hover {
-    background-color: #0043F1cc;
+    background-color:FEA1A1;
   }
   .card-text {
     position: relative;
@@ -387,6 +389,7 @@ p.description {
     left: 10px;
   }
   .carousel-btn.next {
+    button-color: #FEA1A1;
     right: 10px;
   }
 
@@ -407,11 +410,11 @@ p.description {
     font-weight: 700;
     margin-bottom: 1rem;
     font-size: 1.9rem;
-    color: #002C58;
+    color: #664343;
   }
   .about-text p {
     font-size: 1rem;
-    color:rgb(21, 34, 70);
+    color:#664343;
     line-height: 1.6;
   }
   .about-text a {
@@ -632,16 +635,16 @@ p.description {
 </header>
 
 <section class="cards" aria-label="Services cards">
-<div class="card" style="background-image: url('{{ asset('images/') }}')">
+<div class="card" style="background-image: url('{{ asset('images/jk.jpeg') }}')">
     <span class="card-text">Jaringan Komputer Dasar</span>
   </div>
   <div class="card" style="background-image: url('{{ asset('images/database.jpeg') }}')">
     <span class="card-text">Sistem Komputer</span>
   </div>
-  <div class="card" style="background-image: url('{{ asset('images/') }}')">
+  <div class="card" style="background-image: url('{{ asset('images/dp.jpeg') }}')">
     <span class="card-text">Pemrograman Dasar</span>
   </div>
-  <div class="card" style="background-image: url('{{ asset('images/pkk.jpeg') }}')" tabindex="0" aria-label="Internet of Things">
+  <div class="card" style="background-image: url('{{ asset('images/iot.jpeg') }}')" tabindex="0" aria-label="Internet of Things">
     <span class="card-text">Internet of Things</span>
   </div>
 </section>
@@ -683,7 +686,7 @@ p.description {
     <img src="{{ asset('images/kelas_pjok.jpeg') }}" alt="Man wearing hat looking sideways" />
   </div>
   <div class="gallery-item item5">
-    <img src="{{ asset('images/') }}" alt="Shoes and pants flat lay" />
+    <img src="{{ asset('images/oth.jpeg') }}" alt="Shoes and pants flat lay" />
   </div>
   <div class="gallery-item item6">
     <img src="{{ asset('images/prmk.jpeg') }}" alt="Shirts on hangers" />
