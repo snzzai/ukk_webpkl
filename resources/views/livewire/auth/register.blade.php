@@ -14,6 +14,7 @@
             autofocus
             autocomplete="name"
             :placeholder="__('Full name')"
+            style="color: #663434;"
         />
 
         <!-- Email Address -->
@@ -24,6 +25,7 @@
             required
             autocomplete="email"
             placeholder="email@example.com"
+            style="color: #663434;"
         />
 
         <!-- Password -->
@@ -35,6 +37,7 @@
             autocomplete="new-password"
             :placeholder="__('Password')"
             viewable
+            style="color: #663434;"
         />
 
         <!-- Confirm Password -->
@@ -46,17 +49,25 @@
             autocomplete="new-password"
             :placeholder="__('Confirm password')"
             viewable
+            style="color: #663434;"
         />
 
         <div class="flex items-center justify-end">
-            <flux:button type="submit" variant="primary" class="w-full">
+            <flux:button 
+                type="submit" 
+                variant="primary" 
+                class="w-full" 
+                style="background-color: #FEA1A1; color: #FDFDFA;"
+            >
                 {{ __('Create account') }}
             </flux:button>
         </div>
     </form>
 
-    <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
+    <div class="space-x-1 rtl:space-x-reverse text-center text-sm" style="color: #FDFDFA;">
         {{ __('Already have an account?') }}
-        <flux:link :href="route('login')" wire:navigate>{{ __('Log in') }}</flux:link>
+        <flux:link :href="route('login')" wire:navigate style="color: #FDFDFA;">
+            {{ __('Log in') }}
+        </flux:link>
     </div>
 </div>
