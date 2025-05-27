@@ -11,7 +11,7 @@
   }
   body {
     font-family: 'Quicksand', sans-serif;
-    background: linear-gradient(to right, #F9FBE7, #F0EDD4); /* Light Grey */
+    background: #F0EDD4;
     color: #000014; /* Default black */
     line-height: 1.5;
     min-height: 100vh;
@@ -145,6 +145,8 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     cursor: pointer;
     transition: transform 0.3s ease;
+    box-shadow: 0 0 10px #74512D;
+    color: #74512D;
   }
 
   .gallery-item img {
@@ -179,7 +181,7 @@ p.description {
   text-align: center;
   margin-bottom: 2rem;
   font-weight: 500;
-  color: #555;
+  color: #663434;
 }
 
 
@@ -219,7 +221,6 @@ p.description {
     margin-bottom: 0.8rem;
     line-height: 1.2;
     letter-spacing: 0.03em;
-    text-color:#F9FBE7 ;
   }
   .hero p {
     font-size: 1.05rem;
@@ -279,8 +280,8 @@ p.description {
     cursor: pointer;
     overflow: hidden;
     border-radius: 10px;
-    box-shadow: 0 0 20px #ECCDB4;
-    color: #ECCDB4;
+    box-shadow: 0 0 20px #74512D;
+    color: #74512D;
     background-size: cover;
     background-position: center;
     min-height: 230px;
@@ -347,7 +348,7 @@ p.description {
     background: #fff;
   }
   .carousel-track-container {
-    overflow: hidden;
+
   }
   .carousel-track {
     display: flex;
@@ -365,6 +366,8 @@ p.description {
     object-fit: cover;
     display: block;
     border-radius: 12px;
+    box-shadow: 0 0 20px #74512D;
+    color: #74512D;
   }
   .carousel-btn {
     position: absolute;
@@ -417,6 +420,14 @@ p.description {
     color:#664343;
     line-height: 1.6;
   }
+
+  .about-text ul {
+    font-size: 1rem;
+    color:#664343;
+    line-height: 1.6;
+    padding-left: 20px;
+  }
+
   .about-text a {
     font-weight: 700;
     font-size: 1rem;
@@ -611,16 +622,12 @@ p.description {
 <header id="home">
   <div class="navbar">
     <a href="#" class="logo" aria-label="Garden Tree Logo">
-    <img src="images/a_logo.png" alt="Garden Tree Logo" style="width:50px; height:50px; margin-right:10px; object-fit:contain;">
-    READY4PKL
-    </a>
-
+    <img src="images/a_full.png" alt="Garden Tree Logo" style="width:200px; height:200px; margin-right:10px; object-fit:contain">
 
     <nav>
         <a href="#home" tabindex="0">Home</a>
         <a href="#gallery" tabindex="0">Gallery</a>
         <a href="#about-us" tabindex="0">About us</a>
-        <a href="#contact-us" tabindex="0">Contact us</a>
     </nav>
 
     <div class="auth-buttons" >
@@ -635,7 +642,7 @@ p.description {
 </header>
 
 <section class="cards" aria-label="Services cards">
-<div class="card" style="background-image: url('{{ asset('images/jk.jpeg') }}')">
+<div class="card" style="background-image: url('{{ asset('images/jaringan.jpg') }}')">
     <span class="card-text">Jaringan Komputer Dasar</span>
   </div>
   <div class="card" style="background-image: url('{{ asset('images/database.jpeg') }}')">
@@ -652,15 +659,22 @@ p.description {
 
 <section id="about-us" class="about-section custom-about" aria-label="Digital agency problems and solutions">
   <div class="about-text">
-    <h2>Praktik Kerja Lapangan (PKL)<br>SMK NEGERI 2 Depok</h2>
-    <p>Praktik Kerja Lapangan (PKL) di SMKN 2 Depok Yogyakarta memberikan kesempatan kepada siswa untuk mendapatkan pengalaman langsung di dunia industri. Namun, tantangan yang sering dihadapi adalah kesenjangan antara kurikulum pendidikan dengan kebutuhan industri yang terus berkembang. Meskipun demikian, dengan dukungan dari mitra industri, kami terus berupaya untuk menyesuaikan program PKL agar lebih relevan dengan kebutuhan pasar kerja.</p>
+    <h2>Apa Itu READY4PKL?</h2>
+    <p>READY4PKL adalah platform pendataan dan pengelolaan PKL yang dirancang khusus untuk siswa, guru, dan pembimbing industri di SMK N 2 Depok. Website ini menjadi sarana utama untuk:<p><br>
+    <b><ul>
+      <li>Mengajukan tempat PKL secara online</li>
+      <li>Memonitor status pengajuan dan pelaksanaan PKL</li>
+      <li>Mengelola logbook atau laporan kegiatan harian</li>
+    </ul></b> <br>
+    <p>PKL bukan hanya kewajiban, tapi langkah awal menuju karier profesional. Dengan PKL4SIJA, proses ini menjadi lebih mudah, tertata, dan menyenangkan.
+        Mari bersama menciptakan masa depan digital yang cerah, dimulai dari sini.</p>
   </div>
   <div class="images-carousel" aria-label="Team images carousel">
     <button class="carousel-btn prev" aria-label="Previous image">&lt;</button>
     <div class="carousel-track-container">
       <ul class="carousel-track">
         <li class="carousel-slide">
-          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Team Collaboration" />
+          <img src="images/jk.jpeg" alt="Team Collaboration" />
         </li>
       </ul>
     </div>
@@ -669,8 +683,8 @@ p.description {
 </section>
 
 
-<h1>Our Gallery</h1>
-<p class="description">some photos of SIJA'26 memories</p>
+<h1 style="color: #663434;">Our Gallery</h1>
+<p class="description">SIJA 26's gallery</p>
 
 <div id="gallery" class="gallery" aria-label="Image gallery with mixed sizes">
   <div class="gallery-item item1">
@@ -710,9 +724,22 @@ p.description {
 <footer>
   <div class="footer-container" aria-label="Footer navigation and contact information">
     <div class="footer-col">
-      <h3>PKL Tracker</h3>
-      <p>Platform digital untuk mengelola Praktek Kerja Lapangan SMK NEGERI 2 DEPOK dengan teknologi modern dan interface yang user-friendly.</p>
+      <h3>Kenapa Platform Ini?</h3>
+      <ul style="list-style: none; padding: 0;">
+        <li>✅ <strong>User-Friendly & Ceria:</strong> Warna lembut, mencerminkan semangat muda SIJA.</li>
+        <li>✅ <strong>Terintegrasi & Efisien:</strong> Satu sistem untuk siswa, guru, dan industri.</li>
+        <li>✅ <strong>Real-Time Update:</strong> Perubahan status langsung diterima pengguna.</li>
+        <li>✅ <strong>Akses Kapan Saja:</strong> Bisa diakses dari berbagai perangkat.</li>
+      </ul>
     </div>
+
+    <div class="footer-col">
+      <h3>PKL Tracker</h3>
+      <p>
+        Dibuat khusus untuk mendukung kegiatan PKL siswa SMK Negeri 2 Depok dengan teknologi yang terintegrasi, mudah digunakan, dan selalu siap membantu.
+      </p>
+    </div>
+
     <div class="footer-col">
       <h3>Quick Links</h3>
       <a href="#">Home</a>
@@ -721,18 +748,32 @@ p.description {
       <a href="#">Login</a>
       <a href="#">Register</a>
     </div>
-    <div class="footer-col">
-      <h3>Support</h3>
-      <a href="#">Help Center</a>
-      <a href="#">Documentation</a>
-      <a href="#">FAQ</a>
-      <a href="#">Contact Support</a>
-    </div>
+
     <div class="footer-col footer-contact-info">
       <h3>Contact Info</h3>
-      <p><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20 4H4c-1.104 0-2 .896-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6c0-1.104-.896-2-2-2zm0 2l-8 5-8-5h16z"/></svg> <a href="mailto:pkl@smktibali.ac.id">pklsija@stembayo.ac.id</a></p>
-      <p><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l1.58-1.58a1 1 0 011.11-.21c1.21.48 2.53.74 3.88.74a1 1 0 011 1v3.5a1 1 0 01-1 1C10.54 21 3 13.46 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.25 2.67.74 3.88a1 1 0 01-.21 1.11l-1.41 1.8z"/></svg> +62 361-123-4567</p>
-      <p><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM7 9a5 5 0 0110 0c0 2.98-3.02 7.87-5 10.88C10.01 16.86 7 11.92 7 9z"/></svg> Yogyakarta, Indonesia</p>
+      <p>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+          <path d="M20 4H4c-1.104 0-2 .896-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6c0-1.104-.896-2-2-2zm0 2l-8 5-8-5h16z" />
+        </svg>
+        pkl@stembayo.ac.id
+      </p>
+      <p>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+          <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l1.58-1.58a1 1 0 011.11-.21c1.21.48 2.53.74 3.88.74a1 1 0 011 1v3.5a1 1 0 01-1 1C10.54 21 3 13.46 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.25 2.67.74 3.88a1 1 0 01-.21 1.11l-1.41 1.8z" />
+        </svg>
+        02745(13515)
+      </p>
+      <p>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM7 9a5 5 0 0110 0c0 2.98-3.02 7.87-5 10.88C10.01 16.86 7 11.92 7 9z" />
+        </svg>
+        Mrican, Yogyakarta, Indonesia to EVERYWHERE
+      </p>
+    </div>
+    <div class="flex flex-col items-center justify-center">
+      <p class="text-xs text-white mt-6 text-center">
+        © {{ date('Y') }} READY4PKL | Sistem PKL Terintegrasi
+      </p>
     </div>
   </div>
 </footer>
