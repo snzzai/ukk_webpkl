@@ -85,7 +85,7 @@ class Form extends Component
         );
 
         session()->flash('message', 'Data siswa berhasil disimpan.');
-        return redirect()->route('siswa');
+        return redirect()->route('siswas');
     }
 
     public function render()

@@ -53,7 +53,7 @@ class Form extends Component
 
         session()->flash('message', 'Data guru berhasil disimpan.');
 
-        return redirect()->route('guru');
+        return redirect()->route('gurus');
     }
 
     public function render()
