@@ -32,7 +32,7 @@ class SiswaController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required|exists:users,id',
-            'nis' => 'required|unique:siswa,nis,' . $siswa->id,
+            'nis' => 'required|unique:siswaS,nis,' . $siswa->id,
         ]);
 
         $siswa->update($validated);

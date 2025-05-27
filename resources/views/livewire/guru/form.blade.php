@@ -1,4 +1,4 @@
-div class="p-6 max-w-3xl mx-auto bg-white shadow-lg rounded-lg">
+<div class="p-6 max-w-3xl mx-auto bg-white shadow-lg rounded-lg" style="background-color:#F9FBE7; text-color:#663434;">
     <h2 class="text-2xl font-semibold mb-6 text-center">{{ $id ? 'Edit Guru' : 'Tambah Guru' }}</h2>
 
     <form wire:submit.prevent="save" class="space-y-6">
@@ -54,7 +54,7 @@ div class="p-6 max-w-3xl mx-auto bg-white shadow-lg rounded-lg">
             </a>
 
             <!-- Submit Button -->
-            <button type="submit" class="bg-blue-600 cursor-pointer text-white px-6 py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+            <button type="submit" class="bg-[#FEA1A1] cursor-pointer text-white px-6 py-3 rounded-md hover:bg-[#ECCDB4] focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
                 Simpan
             </button>
         </div>

@@ -622,7 +622,7 @@ p.description {
 <header id="home">
   <div class="navbar">
     <a href="#" class="logo" aria-label="Garden Tree Logo">
-    <img src="images/a_full.png" alt="Garden Tree Logo" style="width:200px; height:200px; margin-right:10px; object-fit:contain">
+    <img src="images/ganti.png" alt="Logo" style="width:200px; height:200px; margin-right:10px; object-fit:contain">
 
     <nav>
         <a href="#home" tabindex="0">Home</a>

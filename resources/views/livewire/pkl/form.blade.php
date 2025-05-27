@@ -60,7 +60,7 @@
             <a href="{{ route('pkl') }}" class="bg-gray-500 text-white px-6 py-3 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition">
                 Batal
             </a>
-            <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+            <button type="submit" class="bg-[#FEA1A1] text-white px-6 py-3 rounded-md hover:bg-[#ECCDB4] focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
                 Simpan
             </button>
         </div>

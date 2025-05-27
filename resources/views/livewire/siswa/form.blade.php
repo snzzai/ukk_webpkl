@@ -1,5 +1,5 @@
-<div class= "bg-gradient-to-r from-[#F9FBE7] to-[#F0EDD4]">    
-    <div class="p-6 max-w-3xl mx-auto bg-white shadow-lg rounded-lg">
+<div style= "bg-gradient-to-r from-[#F9FBE7] to-[#F0EDD4]">    
+    <div class="p-6 max-w-3xl mx-auto bg-white shadow-lg rounded-lg" style="background-color:#F9FBE7; text-color:#663434;">
         <h2 class="text-2xl font-semibold mb-6 text-center">{{ $id ? 'Edit Siswa' : 'Tambah Siswa' }}</h2>
 
         <form wire:submit.prevent="save" class="space-y-6">
@@ -52,8 +52,8 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 my-2">Status PKL</label>
                 <flux:radio.group wire:model="status_pkl">
-                    <flux:radio value="no" label="Belum diterima PKL" />
-                    <flux:radio value="P" label="Sudah diterima PKL" />
+                    <flux:radio value="0" label="Belum diterima PKL" />
+                    <flux:radio value="1" label="Sudah diterima PKL" />
                 </flux:radio.group>
                 @error('status_pkl') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
@@ -65,7 +65,7 @@
                 </a>
 
                 <!-- Submit Button -->
-                <button type="submit" class="bg-blue-600 cursor-pointer text-white px-6 py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                <button type="submit" class="bg-[#FEA1A1] cursor-pointer text-white px-6 py-3 rounded-md hover:bg-[#ECCDB4] focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
                     Simpan
                 </button>
             </div>

@@ -9,10 +9,11 @@
 
             <!-- Logo Section -->
             <div class="mb-6 p-4 bg-white/50 dark:bg-white/20 rounded-lg mx-4 mt-4 shadow-sm border border-amber-200">
-                <a href="{{ route('dashboard') }}" class="flex items-center justify-center space-x-2 rtl:space-x-reverse" wire:navigate>
-                    <x-app-logo />
+                <a href="{{ route('dashboard') }}" class="flex items-center justify-start space-x-2 rtl:space-x-reverse" wire:navigate>
+                    <img src="{{ asset('images/ganti.png') }}" alt="Logo" class="w-36 h-auto" />
                 </a>
             </div>
+
 
             <!-- User Profile Section - Moved below logo -->
             <div class="mx-4 mb-6">
