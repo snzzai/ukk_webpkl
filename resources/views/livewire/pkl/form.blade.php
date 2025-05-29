@@ -48,11 +48,25 @@
                 @error('mulai') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
 
-            <!-- Tanggal Selesai -->
+           <!-- Di bagian input tanggal selesai -->
             <div>
                 <label class="block text-sm font-medium text-gray-700">Tanggal Selesai</label>
-                <input type="date" wire:model="selesai" class="w-full mt-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input 
+                    type="date" 
+                    wire:model="selesai" 
+                    class="w-full mt-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    min="{{ $mulai ? \Carbon\Carbon::parse($mulai)->addDays(90)->format('Y-m-d') : '' }}"
+                >
                 @error('selesai') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                
+                <!-- Tampilkan info durasi -->
+                @if($mulai && $selesai)
+                    @php
+                        $start = \Carbon\Carbon::parse($mulai);
+                        $end = \Carbon\Carbon::parse($selesai);
+                        $diff = $start->diffInDays($end);
+                    @endphp
+                @endif
             </div>
         </div>
 

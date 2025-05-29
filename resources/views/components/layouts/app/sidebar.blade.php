@@ -59,13 +59,6 @@
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200">{{ __('Dashboard') }}</flux:navlist.item>
                 </flux:navlist>
                 
-                <flux:navlist variant="outline" class="bg-white/40 dark:bg-white/20 rounded-lg p-2 shadow-sm">
-                        <div class="mb-2">
-                            <h3 class="text-xs font-semibold text-amber-800 uppercase tracking-wider px-2 py-1 bg-[#ECCDB4]/50 rounded-md">{{ __('Data Personal') }}</h3>
-                        </div>
-                        <flux:navlist.item icon="user" :href="route('siswa')" :current="request()->routeIs('siswa')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 mx-auto">{{ __('Siswa') }}</flux:navlist.item>
-                        <flux:navlist.item icon="academic-cap" :href="route('guru')" :current="request()->routeIs('guru')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 mx-auto">{{ __('Guru') }}</flux:navlist.item>
-                </flux:navlist>
 
                 <flux:navlist variant="outline" class="bg-white/40 dark:bg-white/20 rounded-lg p-2 shadow-sm">
                         <div class="mb-2">

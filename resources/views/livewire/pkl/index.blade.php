@@ -2,7 +2,7 @@
     <div class="relative mb-6 w-full grid grid-cols-12 gap-4">
         <div class="col-span-12 md:col-span-6 flex justify-start items-center">
             <a href="{{ route('pkl.create') }}" class="bg-[#FEA1A1] text-[#fdfdfa] px-6 py-3 rounded-md hover:bg-[#FD6F6F] transition duration-200 shadow-[5px_5px_5px_#ECCDB4]">
-                Lapor PKL
+                Tambah PKL
             </a>
         </div>
         <div class="col-span-12 md:col-span-6 flex justify-between items-center space-x-4">

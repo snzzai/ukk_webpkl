@@ -9,6 +9,7 @@ use App\Models\Siswa; // relasi ke siswa
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Carbon\Carbon;
 
 class Form extends Component
 {
@@ -46,13 +47,34 @@ class Form extends Component
             'industri_id' => 'required|exists:industri,id',
             'guru_id' => 'required|exists:guru,id',
             'mulai' => 'required|date',
-            'selesai' => 'required|date|after:mulai',
+            'selesai' => [
+                'required',
+                'date',
+                'after:mulai',
+                function ($attribute, $value, $fail) {
+                    $start = \Carbon\Carbon::parse($this->mulai);
+                    $end = \Carbon\Carbon::parse($value);
+                    $diffInDays = $start->diffInDays($end);
+                    
+                    if ($diffInDays < 90) {
+                        $fail('Durasi PKL harus minimal 3 bulan');
+                    }
+                },
+            ],
         ];
     }
 
     public function save()
     {
         $this->validate();
+        $start = \Carbon\Carbon::parse($this->mulai);
+        $end = \Carbon\Carbon::parse($this->selesai);
+        $diffInDays = $start->diffInDays($end);
+        
+        if ($diffInDays < 90) {
+            session()->flash('error', 'Durasi PKL harus minimal 90 hari');
+            return;
+        }
 
         DB::beginTransaction();
 
