@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::table('gurus', function (Blueprint $table) {
+        Schema::table('guru', function (Blueprint $table) {
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
         });
     }
 
     public function down(): void
     {
-        Schema::table('gurus', function (Blueprint $table) {
+        Schema::table('guru', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
             $table->dropColumn('user_id');
         });

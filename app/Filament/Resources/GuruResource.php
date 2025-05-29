@@ -36,7 +36,7 @@ class GuruResource extends Resource
             ->label('NIP')
             ->required()
             ->maxLength(100)
-            ->unique(ignoreRecord: true, column: 'nip', table: 'gurus')
+            ->unique(ignoreRecord: true, column: 'nip', table: 'guru')
             ->validationMessages([
                 'unique' => 'NIP sudah dipakai.',]), // agar tidak eror saat nip dobel
            

@@ -10,7 +10,7 @@ class Guru extends Model
 {
     use HasFactory;
 
-    protected $table = 'gurus';
+    protected $table = 'guru';
 
     protected $fillable = ['nama', 'nip', 'gender', 'alamat', 'kontak', 'email', 'user_id'];
 

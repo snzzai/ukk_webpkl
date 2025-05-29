@@ -30,6 +30,6 @@ class IndustriSeeder extends Seeder
             ];
         }
 
-        DB::table('industris')->insert($data);
+        DB::table('industri')->insert($data);
     }
 }

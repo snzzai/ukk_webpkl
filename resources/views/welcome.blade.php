@@ -622,17 +622,32 @@ p.description {
 <header id="home">
   <div class="navbar">
     <a href="#" class="logo" aria-label="Garden Tree Logo">
-    <img src="images/ganti.png" alt="Logo" style="width:200px; height:200px; margin-right:10px; object-fit:contain">
+      <img src="images/ganti.png" alt="Logo" style="width:200px; height:200px; margin-right:10px; object-fit:contain">
 
     <nav>
         <a href="#home" tabindex="0">Home</a>
-        <a href="#gallery" tabindex="0">Gallery</a>
         <a href="#about-us" tabindex="0">About us</a>
+        <a href="#gallery" tabindex="0">Gallery</a>
     </nav>
 
-    <div class="auth-buttons" >
-      <button class="btn-register" type="button" onclick="window.location.href='http://127.0.0.1:8000/register'">Register</button>
-<button class="btn-login" type="button" onclick="window.location.href='http://127.0.0.1:8000/login'">Login</button>
+    <div class="auth-buttons">
+      @if (Route::has('login'))
+          @auth
+              <a href="{{ url('/dashboard') }}" class="btn-dashboard">
+                  Dashboard
+              </a>
+          @else
+              <a href="{{ route('login') }}" class="btn-login">
+                  Login
+              </a>
+
+              @if (Route::has('register'))
+                  <a href="{{ route('register') }}" class="btn-register">
+                      Register
+                  </a>
+              @endif
+          @endauth
+      @endif
     </div>
   </div>
   <div class="hero" role="banner" aria-label="Garden Tree hero section with call to action">
@@ -643,13 +658,13 @@ p.description {
 
 <section class="cards" aria-label="Services cards">
 <div class="card" style="background-image: url('{{ asset('images/jaringan.jpg') }}')">
-    <span class="card-text">Jaringan Komputer Dasar</span>
+    <span class="card-text">Jaringan Komputer</span>
   </div>
   <div class="card" style="background-image: url('{{ asset('images/database.jpeg') }}')">
     <span class="card-text">Sistem Komputer</span>
   </div>
   <div class="card" style="background-image: url('{{ asset('images/dp.jpeg') }}')">
-    <span class="card-text">Pemrograman Dasar</span>
+    <span class="card-text">Pemrograman</span>
   </div>
   <div class="card" style="background-image: url('{{ asset('images/iot.jpeg') }}')" tabindex="0" aria-label="Internet of Things">
     <span class="card-text">Internet of Things</span>

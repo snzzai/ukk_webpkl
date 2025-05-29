@@ -26,7 +26,7 @@ class IndustriController extends Controller
             'bidang_usaha' => 'required|string',
             'alamat' => 'required|string',
             'kontak' => 'required|string',
-            'email' => 'required|email|unique:industris,email',
+            'email' => 'required|email|unique:industri,email',
             'guru_pembimbing' => 'required|exists:guru,id',
         ]);
 
@@ -38,7 +38,7 @@ class IndustriController extends Controller
      */
     public function show(string $id)
     {
-        $industri = Industri::with('gurus')->find($id);
+        $industri = Industri::with('guru')->find($id);
 
         if (!$industri) {
             return response()->json(['message' => 'Industri tidak ditemukan'], 404);
@@ -66,13 +66,13 @@ class IndustriController extends Controller
             'bidang_usaha' => 'required|string',
             'alamat' => 'required|string',
             'kontak' => 'required|string',
-            'email' => 'required|email|unique:industris,email,' . $id,
+            'email' => 'required|email|unique:industri,email,' . $id,
             'guru_pembimbing' => 'required|exists:guru,id',
         ]);
 
         $industri->update($request->all());
 
-        $industri->load('gurus');
+        $industri->load('guru');
 
         return response()->json([
             'message' => 'Data industri berhasil diperbarui',

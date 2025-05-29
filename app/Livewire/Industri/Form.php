@@ -71,7 +71,7 @@ class Form extends Component
 
         session()->flash('message', 'Data industri berhasil disimpan.');
 
-        return redirect()->route('industris');
+        return redirect()->route('industri');
     }
 
     public function render()

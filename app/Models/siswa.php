@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class Siswa extends Model
 {
     use HasFactory;
-    protected $table = 'siswas';
+    protected $table = 'siswa';
 
     protected $fillable = ['nama', 'nis', 'gender', 'alamat', 'kontak', 'email', 'foto', 'status_pkl', 'user_id'];
     
