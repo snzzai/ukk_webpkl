@@ -6,43 +6,43 @@
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <label class="block text-sm font-medium text-gray-700">Nama</label>
-                <input type="text" wire:model="nama" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="text" wire:model="nama" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-gray-500" />
                 @error('nama') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700">Bidang Usaha</label>
-                <input type="text" wire:model="bidang_usaha" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="text" wire:model="bidang_usaha" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-gray-500" />
                 @error('bidang_usaha') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
            
             <div>
                 <label class="block text-sm font-medium text-gray-700">Alamat</label>
-                <input type="textarea" wire:model="alamat" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="textarea" wire:model="alamat" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-gray-500" />
                 @error('alamat') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700">Kontak</label>
-                <input type="textarea" wire:model="kontak" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="textarea" wire:model="kontak" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-gray-500" />
                 @error('kontak') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="textarea" wire:model="email" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="textarea" wire:model="email" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-gray-500" />
                 @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700">Website Perusahaan</label>
-                <input type="text" wire:model="website" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="text" wire:model="website" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-gray-500" />
                 @error('website') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
             
             <div>
                 <label class="block text-sm font-medium text-gray-700">Opsi Guru Pembimbing</label>
-                <select wire:model="guru_pembimbing" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <select wire:model="guru_pembimbing" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-gray-500">
                     <option value="">Pilih Guru Pembimbing</option>
                     @foreach($guruList as $guru)
                         <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
@@ -57,7 +57,7 @@
                 Cancel
             </a>
 
-            <button type="submit" class="bg-[#FEA1A1] cursor-pointer text-white px-6 py-3 rounded-md hover:bg-[#ECCDB4] focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+            <button type="submit" class="bg-[#FEA1A1] cursor-pointer text-white px-6 py-3 rounded-md hover:bg-[#fd6f6f] focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-200">
                 Simpan
             </button>
         </div>

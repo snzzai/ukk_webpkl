@@ -2,10 +2,10 @@
 
 namespace App\Livewire\Pkl;
 
-use App\Models\Guru; // relasi ke guru
-use App\Models\Industri; // relasi ke industri
+use App\Models\Guru;
+use App\Models\Industri;
 use App\Models\PKL;
-use App\Models\Siswa; // relasi ke siswa
+use App\Models\Siswa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -13,7 +13,7 @@ use Carbon\Carbon;
 
 class Form extends Component
 {
-    public $id, $siswa_id, $industri_id, $guru_id, $mulai, $selesai;
+    public $id, $siswa_id, $industri_id, $guru_id, $tanggal_mulai, $tanggal_selesai;
     public $pklList = [];
     public $siswaList = [];
     public $industriList = [];
@@ -35,8 +35,8 @@ class Form extends Component
             $this->siswa_id = $pkl->siswa_id;
             $this->industri_id = $pkl->industri_id;
             $this->guru_id = $pkl->guru_id;
-            $this->mulai = $pkl->mulai;
-            $this->selesai = $pkl->selesai;
+            $this->tanggal_mulai = $pkl->tanggal_mulai->format('Y-m-d');
+            $this->tanggal_selesai = $pkl->tanggal_selesai->format('Y-m-d');
         }
     }
 
@@ -46,18 +46,16 @@ class Form extends Component
             'siswa_id' => 'required|exists:siswa,id',
             'industri_id' => 'required|exists:industri,id',
             'guru_id' => 'required|exists:guru,id',
-            'mulai' => 'required|date',
-            'selesai' => [
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => [
                 'required',
                 'date',
-                'after:mulai',
+                'after:tanggal_mulai',
                 function ($attribute, $value, $fail) {
-                    $start = \Carbon\Carbon::parse($this->mulai);
-                    $end = \Carbon\Carbon::parse($value);
-                    $diffInDays = $start->diffInDays($end);
-                    
-                    if ($diffInDays < 90) {
-                        $fail('Durasi PKL harus minimal 3 bulan');
+                    $start = Carbon::parse($this->tanggal_mulai);
+                    $end = Carbon::parse($value);
+                    if ($start->diffInDays($end) < 90) {
+                        $fail('Durasi PKL minimal 90 hari');
                     }
                 },
             ],
@@ -67,26 +65,16 @@ class Form extends Component
     public function save()
     {
         $this->validate();
-        $start = \Carbon\Carbon::parse($this->mulai);
-        $end = \Carbon\Carbon::parse($this->selesai);
-        $diffInDays = $start->diffInDays($end);
-        
-        if ($diffInDays < 90) {
-            session()->flash('error', 'Durasi PKL harus minimal 90 hari');
-            return;
-        }
 
         DB::beginTransaction();
 
         try {
-            // Temukan siswa berdasarkan email user yang login
             $siswa = Siswa::where('email', $this->userMail)->first();
 
-            // Cek jika siswa ditemukan dan sudah punya laporan PKL
-            if ($siswa && PKL::where('siswa_id', $siswa->id)->exists()) {
+            if ($siswa && PKL::where('siswa_id', $siswa->id)->exists() && !$this->id) {
                 DB::rollBack();
-                session()->flash('message', 'Input dibatalkan: Anda sudah pernah melaporkan PKL.');
-                return redirect()->route('pkl');
+                session()->flash('error', 'Anda sudah pernah melaporkan PKL.');
+                return;
             }
 
             PKL::updateOrCreate(
@@ -95,18 +83,19 @@ class Form extends Component
                     'siswa_id' => $this->siswa_id,
                     'industri_id' => $this->industri_id,
                     'guru_id' => $this->guru_id,
-                    'mulai' => $this->mulai,
-                    'selesai' => $this->selesai,
+                    'tanggal_mulai' => $this->tanggal_mulai,
+                    'tanggal_selesai' => $this->tanggal_selesai
                 ]
             );
 
             DB::commit();
-            session()->flash('message', 'Laporan PKL berhasil disimpan.');
-
+            session()->flash('success', 'Laporan PKL berhasil disimpan.');
             return redirect()->route('pkl');
+
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('pkl')->with('error', 'Terjadi kesalahan teknis, silakan ulangi.');
+            session()->flash('error', 'Terjadi kesalahan: '.$e->getMessage());
+            return;
         }
     }
 
@@ -114,5 +103,4 @@ class Form extends Component
     {
         return view('livewire.pkl.form');
     }
-
 }

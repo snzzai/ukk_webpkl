@@ -10,7 +10,18 @@ class PKL extends Model
     use HasFactory;
     protected $table = 'pkl';
 
-    protected $fillable = ['siswa_id', 'industri_id', 'guru_id', 'mulai', 'selesai'];
+    protected $fillable = [
+        'siswa_id', 
+        'industri_id', 
+        'guru_id', 
+        'tanggal_mulai',  // Diubah dari 'mulai'
+        'tanggal_selesai' // Diubah dari 'selesai'
+    ];
+
+    protected $casts = [
+        'tanggal_mulai' => 'date',
+        'tanggal_selesai' => 'date'
+    ];
 
     public function siswa()
     {
