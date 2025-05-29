@@ -1,42 +1,112 @@
-<div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">
-    <!-- Informasi PKL -->
-    <div class="grid grid-cols-2 gap-6">
-        <!-- Siswa & Guru Pembimbing -->
-        <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
-            <h3 class="font-semibold text-lg text-gray-800">Nama Siswa</h3>
-            <p class="text-gray-700 mt-2">{{ $pkl->siswa ? $pkl->siswa->nama : 'Tidak ada siswa' }}</p>
+<div class="max-w-7xl mx-auto p-6">
+    <!-- Notifikasi -->
+    @if (session('success'))
+        <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
+            {{ session('success') }}
         </div>
-        <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
-            <h3 class="font-semibold text-lg text-gray-800">Guru Pembimbing</h3>
-            <p class="text-gray-700 mt-2">{{ $pkl->guru ? $pkl->guru->nama : 'Tidak ada siswa' }}</p>
+    @endif
+    @if (session('error'))
+        <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
+            {{ session('error') }}
         </div>
+    @endif
 
-        <!-- Industri & Bidang Usaha -->
-        <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
-            <h3 class="font-semibold text-lg text-gray-800">Industri</h3>
-            <p class="text-gray-700 mt-2">{{ $pkl->industri ? $pkl->industri->nama : 'Tidak ada industri' }}</p>
+    <!-- Tombol Create (hanya untuk siswa tanpa PKL atau admin) -->
+    @if(auth()->user()->role !== 'siswa' || (auth()->user()->siswa && !auth()->user()->siswa->pkl))
+        <div class="mb-4">
+            <a href="{{ route('pkl.create') }}" 
+               class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+                Buat Laporan PKL
+            </a>
         </div>
-        <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
-            <h3 class="font-semibold text-lg text-gray-800">Bidang Usaha</h3>
-            <p class="text-gray-700 mt-2">{{ $pkl->industri ? $pkl->industri->bidang_usaha : 'Tidak ada bidang usaha' }}</p>
-        </div>
+    @endif
 
-        <!-- Tanggal Mulai & Selesai -->
-        <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
-            <h3 class="font-semibold text-lg text-gray-800">Tanggal Mulai</h3>
-            <p class="text-gray-700 mt-2">{{ $pkl->mulai }}</p>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
-            <h3 class="font-semibold text-lg text-gray-800">Tanggal Selesai</h3>
-            <p class="text-gray-700 mt-2">{{ $pkl->selesai }}</p>
-        </div>
+    <!-- Search dan Pagination -->
+    <div class="mb-4 flex justify-between items-center">
+        <input type="text" wire:model.live="search" placeholder="Cari..." 
+               class="border rounded-lg px-4 py-2 w-64">
+        
+        <select wire:model.live="numpage" class="border rounded-lg px-4 py-2">
+            <option value="10">10 per halaman</option>
+            <option value="25">25 per halaman</option>
+            <option value="50">50 per halaman</option>
+        </select>
     </div>
 
-    <!-- Tombol Kembali -->
-    <div class="text-center mt-8">
-        <a href="{{ route('pkl') }}"
-           class="inline-block bg-gray-500 text-white px-6 py-3 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-200">
-            Kembali
-        </a>
+    <!-- Tabel PKL -->
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <table class="min-w-full">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="py-3 px-4 text-left">Siswa</th>
+                    <th class="py-3 px-4 text-left">Industri</th>
+                    <th class="py-3 px-4 text-left">Guru</th>
+                    <th class="py-3 px-4 text-left">Tanggal Mulai</th>
+                    <th class="py-3 px-4 text-left">Tanggal Selesai</th>
+                    <th class="py-3 px-4 text-left">Status</th>
+                    <th class="py-3 px-4 text-left">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($pklList as $pkl)
+                    <tr class="border-t hover:bg-gray-50">
+                        <td class="py-3 px-4">{{ $pkl->siswa->nama ?? '-' }}</td>
+                        <td class="py-3 px-4">{{ $pkl->industri->nama ?? '-' }}</td>
+                        <td class="py-3 px-4">{{ $pkl->guru->nama ?? '-' }}</td>
+                        <td class="py-3 px-4">{{ $pkl->tanggal_mulai->format('d/m/Y') }}</td>
+                        <td class="py-3 px-4">{{ $pkl->tanggal_selesai->format('d/m/Y') }}</td>
+                        <td class="py-3 px-4">
+                            <span class="px-2 py-1 rounded-full text-xs 
+                                {{ $pkl->status === 'approved' ? 'bg-green-100 text-green-800' : 
+                                   ($pkl->status === 'rejected' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800') }}">
+                                {{ ucfirst($pkl->status) }}
+                            </span>
+                        </td>
+                        <td class="py-3 px-4">
+                            <a href="{{ route('pkl.edit', $pkl->id) }}" 
+                               class="text-blue-500 hover:text-blue-700 mr-2">Edit</a>
+                            
+                            @if(auth()->user()->role === 'admin')
+                                <button wire:click="confirmDelete({{ $pkl->id }})" 
+                                        class="text-red-500 hover:text-red-700">
+                                    Hapus
+                                </button>
+                            @endif
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" class="py-4 px-4 text-center text-gray-500">
+                            Tidak ada data PKL ditemukan
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
+
+    <!-- Pagination -->
+    <div class="mt-4">
+        {{ $pklList->links() }}
+    </div>
+
+    <!-- Modal Konfirmasi Hapus -->
+    @if($confirmingDelete)
+        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full">
+                <h3 class="text-lg font-semibold mb-4">Konfirmasi Hapus</h3>
+                <p class="mb-6">Anda yakin ingin menghapus laporan PKL ini?</p>
+                <div class="flex justify-end space-x-3">
+                    <button wire:click="$set('confirmingDelete', null)" 
+                            class="px-4 py-2 border rounded-lg hover:bg-gray-100">
+                        Batal
+                    </button>
+                    <button wire:click="delete({{ $confirmingDelete }})" 
+                            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                        Hapus
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>

@@ -18,7 +18,7 @@ class User extends Authenticatable
 
     public function siswa()
     {
-        return $this->hasOne(Siswa::class, 'user_id', 'id');
+        return $this->hasOne(Siswa::class, 'email', 'email');
     }
 
     public function guru()

@@ -14,16 +14,13 @@ use Carbon\Carbon;
 class Form extends Component
 {
     public $id, $siswa_id, $industri_id, $guru_id, $tanggal_mulai, $tanggal_selesai;
-    public $siswaList = [];
-    public $industriList = [];
-    public $guruList = [];
-    public $userMail;
+    public $siswaList = [], $industriList = [], $guruList = [];
+    public $confirmingDelete = false;
 
     public function mount($id = null)
     {
-        $user = auth()->user();
-        $this->userMail = $user->email;
-
+        $user = Auth::user();
+        
         // Validasi untuk siswa
         if ($user->role === 'siswa') {
             if (!$user->siswa) {
@@ -31,6 +28,7 @@ class Form extends Component
                 return redirect()->route('pkl');
             }
 
+            // Jika sudah punya PKL dan bukan mode edit
             if (!$id && $user->siswa->pkl) {
                 session()->flash('error', 'Anda sudah membuat laporan PKL sebelumnya');
                 return redirect()->route('pkl');
@@ -49,11 +47,8 @@ class Form extends Component
             $this->guru_id = $pkl->guru_id;
             $this->tanggal_mulai = $pkl->tanggal_mulai->format('Y-m-d');
             $this->tanggal_selesai = $pkl->tanggal_selesai->format('Y-m-d');
-        } else {
-            // Auto-set siswa yang login jika ada
-            if ($user->siswa) {
-                $this->siswa_id = $user->siswa->id;
-            }
+        } elseif ($user->siswa) {
+            $this->siswa_id = $user->siswa->id;
         }
     }
 
@@ -67,7 +62,7 @@ class Form extends Component
             'tanggal_selesai' => [
                 'required',
                 'date',
-                'after:tanggal_mulai',
+                'after_or_equal:tanggal_mulai',
                 function ($attribute, $value, $fail) {
                     $start = Carbon::parse($this->tanggal_mulai);
                     $end = Carbon::parse($value);
@@ -81,41 +76,26 @@ class Form extends Component
 
     public function save()
     {
-        $this->validate([
-            'industri_id' => 'required|exists:industris,id',
-            'guru_id' => 'required|exists:gurus,id',
-            'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => [
-                'required',
-                'date',
-                'after_or_equal:tanggal_mulai',
-                function ($attribute, $value, $fail) {
-                    $start = \Carbon\Carbon::parse($this->tanggal_mulai);
-                    $end = \Carbon\Carbon::parse($value);
-                    if ($start->diffInDays($end) < 90) {
-                        $fail('Durasi PKL minimal 90 hari');
-                    }
-                }
-            ],
-        ]);
+        $this->validate();
 
         DB::beginTransaction();
         try {
-            $user = auth()->user();
+            $user = Auth::user();
             
-            // Validasi untuk siswa yang sudah memiliki PKL
+            // Validasi untuk siswa
             if ($user->role === 'siswa') {
                 if (!$user->siswa) {
                     throw new \Exception('Akun Anda belum terhubung dengan data siswa');
                 }
                 
+                // Cek apakah sudah punya PKL (kecuali sedang edit)
                 if (PKL::where('siswa_id', $user->siswa->id)
                     ->where('id', '!=', $this->id)
                     ->exists()) {
                     throw new \Exception('Anda sudah membuat laporan PKL sebelumnya');
                 }
                 
-                $this->siswa_id = $user->siswa->id; // Otomatis set siswa_id
+                $this->siswa_id = $user->siswa->id; // Force set siswa_id
             }
 
             $pklData = [
@@ -130,13 +110,12 @@ class Form extends Component
             PKL::updateOrCreate(['id' => $this->id], $pklData);
 
             DB::commit();
-            session()->flash('success', 'Laporan PKL berhasil dikirim');
+            session()->flash('success', 'Laporan PKL berhasil ' . ($this->id ? 'diperbarui' : 'dikirim'));
             return redirect()->route('pkl');
 
         } catch (\Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Gagal menyimpan: '.$e->getMessage());
-            return;
         }
     }
 

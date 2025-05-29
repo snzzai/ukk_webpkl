@@ -1,123 +1,126 @@
-<div class="p-6 max-w-3xl mx-auto shadow-lg rounded-lg" style="background: linear-gradient(to right, #F9FBE7, #F0EDD4);">
+<div class="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-lg">
     <h2 class="text-2xl font-semibold mb-6 text-center">
-        {{ $id ? 'Edit Laporan' : 'Lapor PKL' }}
+        {{ $id ? 'Edit Laporan PKL' : 'Buat Laporan PKL' }}
     </h2>
 
+    <!-- Notifikasi -->
     @if (session('success'))
-        <div class="mb-4 p-4 bg-green-100 text-green-700 rounded">
+        <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
             {{ session('success') }}
         </div>
     @endif
-
     @if (session('error'))
-        <div class="mb-4 p-4 bg-red-100 text-red-700 rounded">
+        <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
             {{ session('error') }}
         </div>
     @endif
 
+    <!-- Info untuk siswa -->
     @if(auth()->user()->role === 'siswa')
-        <div class="mb-4 p-4 bg-blue-50 border-l-4 border-blue-500">
-            <p class="text-blue-700">Anda akan membuat laporan PKL sebagai: 
-               <strong>{{ auth()->user()->siswa->nama ?? 'N/A' }}</strong></p>
+        <div class="mb-4 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-lg">
+            <p class="text-blue-700">
+                Anda membuat laporan sebagai: 
+                <strong>{{ auth()->user()->siswa->nama ?? 'N/A' }}</strong>
+            </p>
+            @if(auth()->user()->siswa->pkl && !$id)
+                <p class="mt-2 text-yellow-700">
+                    <i class="fas fa-exclamation-triangle mr-1"></i>
+                    Anda sudah memiliki laporan PKL. Hubungi admin untuk perubahan.
+                </p>
+            @endif
         </div>
     @endif
 
     <form wire:submit.prevent="save" class="space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Field siswa (hanya untuk admin) -->
             @if(auth()->user()->role !== 'siswa')
-                <!-- Nama Siswa (hanya tampil untuk admin/guru) -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Nama Siswa</label>
-                    <select wire:model="siswa_id" class="w-full mt-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nama Siswa</label>
+                    <select wire:model="siswa_id" 
+                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                         <option value="">Pilih Siswa</option>
                         @foreach($siswaList as $siswa)
                             <option value="{{ $siswa->id }}">{{ $siswa->nama }}</option>
                         @endforeach
                     </select>
-                    @error('siswa_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    @error('siswa_id') <span class="text-red-500 text-sm mt-1">{{ $message }}</span> @enderror
                 </div>
             @endif
 
-            <!-- Industri Tujuan -->
+            <!-- Industri -->
             <div>
-                <label class="block text-sm font-medium text-gray-700">Industri Tujuan</label>
-                <select wire:model="industri_id" class="w-full mt-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500">
-                    <option value="">Pilih industri tujuan</option>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Industri Tujuan</label>
+                <select wire:model="industri_id" 
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Pilih Industri</option>
                     @foreach($industriList as $industri)
                         <option value="{{ $industri->id }}">{{ $industri->nama }}</option>
                     @endforeach
                 </select>
-                @error('industri_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                @error('industri_id') <span class="text-red-500 text-sm mt-1">{{ $message }}</span> @enderror
             </div>
 
             <!-- Guru Pembimbing -->
             <div>
-                <label class="block text-sm font-medium text-gray-700">Guru Pembimbing</label>
-                <select wire:model="guru_id" class="w-full mt-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500">
-                    <option value="">Pilih guru pembimbing</option>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Guru Pembimbing</label>
+                <select wire:model="guru_id" 
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Pilih Guru</option>
                     @foreach($guruList as $guru)
                         <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
                     @endforeach
                 </select>
-                @error('guru_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                @error('guru_id') <span class="text-red-500 text-sm mt-1">{{ $message }}</span> @enderror
             </div>
 
             <!-- Tanggal Mulai -->
             <div>
-                <label class="block text-sm font-medium text-gray-700">Tanggal Mulai</label>
-                <input 
-                    type="date" 
-                    wire:model="tanggal_mulai" 
-                    class="w-full mt-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                    min="{{ now()->format('Y-m-d') }}"
-                >
-                @error('tanggal_mulai') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai</label>
+                <input type="date" wire:model="tanggal_mulai" 
+                       min="{{ now()->format('Y-m-d') }}"
+                       class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                @error('tanggal_mulai') <span class="text-red-500 text-sm mt-1">{{ $message }}</span> @enderror
             </div>
 
             <!-- Tanggal Selesai -->
             <div>
-                <label class="block text-sm font-medium text-gray-700">Tanggal Selesai</label>
-                <input 
-                    type="date" 
-                    wire:model="tanggal_selesai" 
-                    class="w-full mt-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                    min="{{ $tanggal_mulai ? \Carbon\Carbon::parse($tanggal_mulai)->addDays(90)->format('Y-m-d') : '' }}"
-                >
-                @error('tanggal_selesai') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Selesai</label>
+                <input type="date" wire:model="tanggal_selesai" 
+                       min="{{ $tanggal_mulai ? \Carbon\Carbon::parse($tanggal_mulai)->addDay()->format('Y-m-d') : '' }}"
+                       class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                @error('tanggal_selesai') <span class="text-red-500 text-sm mt-1">{{ $message }}</span> @enderror
                 
-                <!-- Tampilkan info durasi -->
+                <!-- Info Durasi -->
                 @if($tanggal_mulai && $tanggal_selesai)
                     @php
                         $start = \Carbon\Carbon::parse($tanggal_mulai);
                         $end = \Carbon\Carbon::parse($tanggal_selesai);
                         $diff = $start->diffInDays($end);
                     @endphp
-                    <p class="text-sm mt-1 {{ $diff < 90 ? 'text-red-500' : 'text-green-500' }}">
+                    <p class="text-sm mt-2 {{ $diff < 90 ? 'text-red-500' : 'text-green-500' }}">
                         Durasi: {{ $diff }} hari {{ $diff < 90 ? '(Minimal 90 hari)' : '' }}
                     </p>
                 @endif
             </div>
         </div>
 
-        <div class="flex justify-between pt-4">
-            <a href="{{ route('pkl') }}" class="bg-gray-500 text-white px-6 py-3 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition">
-                Batal
+        <div class="flex justify-between pt-6">
+            <a href="{{ route('pkl') }}" 
+               class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition">
+                Kembali
             </a>
-            <button 
-                type="submit" 
-                wire:loading.attr="disabled"
-                class="bg-[#FEA1A1] text-white px-6 py-3 rounded-md hover:bg-[#fd6f6f] focus:outline-none focus:ring-2 focus:ring-[#fd6f6f] transition"
-                wire:target="save"
-            >
-                <span wire:loading.remove>Simpan</span>
-                <span wire:loading wire:target="save">
-                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Menyimpan...
-                </span>
-            </button>
+            
+            @if(!(auth()->user()->role === 'siswa' && auth()->user()->siswa->pkl && !$id))
+                <button type="submit" 
+                        wire:loading.attr="disabled"
+                        class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition">
+                    <span wire:loading.remove>{{ $id ? 'Update' : 'Simpan' }}</span>
+                    <span wire:loading wire:target="save">
+                        <i class="fas fa-spinner fa-spin mr-1"></i> Menyimpan...
+                    </span>
+                </button>
+            @endif
         </div>
     </form>
 </div>

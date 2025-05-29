@@ -12,38 +12,56 @@ class View extends Component
 
     public $numpage = 10;
     public $search;
+    public $confirmingDelete = null;
 
     public function updatingSearch()
     {
         $this->resetPage();
     }
 
+    public function confirmDelete($id)
+    {
+        $this->confirmingDelete = $id;
+    }
+
     public function delete($id)
     {
+        // Hanya admin yang bisa menghapus
+        if (auth()->user()->role !== 'admin') {
+            session()->flash('error', 'Hanya admin yang dapat menghapus laporan PKL');
+            return;
+        }
+
         PKL::findOrFail($id)->delete();
-        session()->flash('message', 'Data PKL berhasil dihapus.');
+        session()->flash('success', 'Data PKL berhasil dihapus');
+        $this->confirmingDelete = null;
     }
 
     public function render()
     {
-        $query = PKL::query();
+        $query = PKL::with(['siswa', 'industri', 'guru']);
 
-        if (!empty($this->search)) {
-            $query->join('siswa', 'pkl.siswa_id', '=', 'siswa.id')
-                  ->join('industri', 'pkl.industri_id', '=', 'industri.id')
-                  ->join('guru', 'pkl.guru_id', '=', 'guru.id')
-                  ->where(function ($q) {
-                      $q->where('siswa.nama', 'like', '%' . $this->search . '%')
-                        ->orWhere('industri.nama', 'like', '%' . $this->search . '%')
-                        ->orWhere('guru.nama', 'like', '%' . $this->search . '%');
-                  });
+        if ($this->search) {
+            $query->whereHas('siswa', function($q) {
+                    $q->where('nama', 'like', '%'.$this->search.'%');
+                })
+                ->orWhereHas('industri', function($q) {
+                    $q->where('nama', 'like', '%'.$this->search.'%');
+                })
+                ->orWhereHas('guru', function($q) {
+                    $q->where('nama', 'like', '%'.$this->search.'%');
+                });
         }
 
-        $pklList = $query->select('pkl.*')->paginate($this->numpage);
+        // Jika siswa, hanya tampilkan PKL miliknya
+        if (auth()->user()->role === 'siswa' && auth()->user()->siswa) {
+            $query->where('siswa_id', auth()->user()->siswa->id);
+        }
 
-        return view('livewire.pkl.index', [
+        $pklList = $query->paginate($this->numpage);
+
+        return view('livewire.pkl.view', [
             'pklList' => $pklList,
         ]);
     }
-
 }
