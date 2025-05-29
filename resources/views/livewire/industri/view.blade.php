@@ -1,6 +1,5 @@
 <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">
     <div class="px-4 mb-6 flex justify-center items-center">
-        <img src="{{ asset('storage/'.$industri->foto) }}" class="w-full object-cover" alt="{{ $industri->foto }}">
     </div>
     <!-- Bento -->
     <div class="grid grid-cols-6 grid-rows-3 gap-4">

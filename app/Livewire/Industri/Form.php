@@ -10,7 +10,7 @@ use Livewire\WithFileUploads;
 class Form extends Component
 {
     use WithFileUploads;
-    public $id, $nama, $bidang_usaha, $alamat, $kontak, $email, $guru_pembimbing, $website, $foto;
+    public $id, $nama, $bidang_usaha, $alamat, $kontak, $email, $guru_pembimbing, $website;
 
     public $guruList = [];
 
@@ -30,7 +30,6 @@ class Form extends Component
             $this->email = $industri->email;
             $this->guru_pembimbing = $industri->guru_pembimbing;  // Set guru_pembimbing jika edit
             $this->website = $industri->website;
-            $this->foto = $industri->foto;
         }
     }
 
@@ -44,15 +43,12 @@ class Form extends Component
             'email' => 'required|email',
             'guru_pembimbing' => 'required|exists:guru,id',  // Memastikan guru_pembimbing valid
             'website' => 'required|string',
-            'foto' => 'nullable',
         ];
     }
 
     public function save()
     {
         $this->validate();
-
-        $imagePath = $this->foto ? $this->foto->store('foto_industri', 'public') : $this->foto;
 
         // Update or create industri
         Industri::updateOrCreate(
@@ -65,7 +61,6 @@ class Form extends Component
                 'email' => $this->email,
                 'guru_pembimbing' => $this->guru_pembimbing,
                 'website' => $this->website,
-                'foto' => $imagePath,
             ]
         );
 
