@@ -62,4 +62,29 @@
             </tbody>
         </table>
     </div>
+
+    <div class="my-4">
+    <!-- Pagination Links -->
+        <div class="flex justify-between items-center mb-4">
+            <!-- Page Size Selection -->
+            <div class="flex items-center space-x-2">
+                <label for="perPage" class="text-sm font-medium text-[#FEA1A1]">Tampilkan:</label>
+                <select wire:model="numpage" id="perPage" 
+                    class="px-3 py-2 border rounded-md bg-[#FEA1A1] text-[#fdfdfa]">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="{{ $guruList->total() }}">semua</option>
+                </select>
+                <span class="text-sm text-[#FEA1A1]">data per halaman</span>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div class="flex justify-end mt-4">
+                <div class="bg-[#F9FBE7] rounded-md shadow-md p-2">
+                {{ $guruList->links() }}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

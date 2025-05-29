@@ -15,12 +15,14 @@ class PKL extends Model
         'industri_id', 
         'guru_id', 
         'tanggal_mulai',  // Diubah dari 'mulai'
-        'tanggal_selesai' // Diubah dari 'selesai'
+        'tanggal_selesai', // Diubah dari 'selesai'
+        'status' // tambahkan kolom status
     ];
 
     protected $casts = [
         'tanggal_mulai' => 'date',
-        'tanggal_selesai' => 'date'
+        'tanggal_selesai' => 'date',
+        'status' => 'string'
     ];
 
     public function siswa()

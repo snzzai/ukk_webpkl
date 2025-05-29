@@ -15,25 +15,34 @@
         </div>
     @endif
 
+    @if(auth()->user()->role === 'siswa')
+        <div class="mb-4 p-4 bg-blue-50 border-l-4 border-blue-500">
+            <p class="text-blue-700">Anda akan membuat laporan PKL sebagai: 
+               <strong>{{ auth()->user()->siswa->nama ?? 'N/A' }}</strong></p>
+        </div>
+    @endif
+
     <form wire:submit.prevent="save" class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Nama Siswa -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Nama Siswa</label>
-                <select wire:model="siswa_id" class="w-full mt-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500">
-                    <option value="">Cari nama anda</option>
-                    @foreach($siswaList as $siswa)
-                        <option value="{{ $siswa->id }}">{{ $siswa->nama }}</option>
-                    @endforeach
-                </select>
-                @error('siswa_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-            </div>
+            @if(auth()->user()->role !== 'siswa')
+                <!-- Nama Siswa (hanya tampil untuk admin/guru) -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Nama Siswa</label>
+                    <select wire:model="siswa_id" class="w-full mt-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                        <option value="">Pilih Siswa</option>
+                        @foreach($siswaList as $siswa)
+                            <option value="{{ $siswa->id }}">{{ $siswa->nama }}</option>
+                        @endforeach
+                    </select>
+                    @error('siswa_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                </div>
+            @endif
 
             <!-- Industri Tujuan -->
             <div>
                 <label class="block text-sm font-medium text-gray-700">Industri Tujuan</label>
                 <select wire:model="industri_id" class="w-full mt-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500">
-                    <option value="">Pilih industri tujuan anda</option>
+                    <option value="">Pilih industri tujuan</option>
                     @foreach($industriList as $industri)
                         <option value="{{ $industri->id }}">{{ $industri->nama }}</option>
                     @endforeach
@@ -45,7 +54,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700">Guru Pembimbing</label>
                 <select wire:model="guru_id" class="w-full mt-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500">
-                    <option value="">Pilih guru pembimbing yang sesuai</option>
+                    <option value="">Pilih guru pembimbing</option>
                     @foreach($guruList as $guru)
                         <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
                     @endforeach
@@ -60,6 +69,7 @@
                     type="date" 
                     wire:model="tanggal_mulai" 
                     class="w-full mt-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    min="{{ now()->format('Y-m-d') }}"
                 >
                 @error('tanggal_mulai') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
@@ -97,9 +107,16 @@
                 type="submit" 
                 wire:loading.attr="disabled"
                 class="bg-[#FEA1A1] text-white px-6 py-3 rounded-md hover:bg-[#fd6f6f] focus:outline-none focus:ring-2 focus:ring-[#fd6f6f] transition"
+                wire:target="save"
             >
                 <span wire:loading.remove>Simpan</span>
-                <span wire:loading>Menyimpan...</span>
+                <span wire:loading wire:target="save">
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Menyimpan...
+                </span>
             </button>
         </div>
     </form>

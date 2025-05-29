@@ -72,16 +72,22 @@ class SiswaSeeder extends Seeder
         ];
 
         foreach ($data as $item) {
-            // Membuat email berdasarkan format nis@sija.com
             $email = "{$item['nis']}@sija.com";
-
-            // Menambahkan email yang sesuai dengan format
-            $item['email'] = $email;
-
-            // Memasukkan atau mencari siswa berdasarkan email
-            Siswa::firstOrCreate(
+            
+            // Cari atau buat user
+            $user = \App\Models\User::updateOrCreate(
                 ['email' => $email],
-                $item // Menambahkan data lainnya (nama, nis, gender, dll.)
+                [
+                    'name' => $item['nama'],
+                    'password' => bcrypt('password123'), // gunakan password yang lebih kuat
+                    'role' => 'siswa'
+                ]
+            );
+
+            // Buat data siswa
+            \App\Models\Siswa::updateOrCreate(
+                ['email' => $email],
+                array_merge($item, ['email' => $email])
             );
         }
     }

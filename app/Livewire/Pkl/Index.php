@@ -6,13 +6,18 @@ use App\Models\PKL;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-
 class Index extends Component
 {
-        use WithPagination;
+    use WithPagination;
 
     public $numpage = 10;
     public $search;
+    public $isAdmin = false;
+
+    public function mount()
+    {
+        $this->isAdmin = auth()->user()->role === 'admin';
+    }
 
     public function updatingSearch()
     {
@@ -21,8 +26,14 @@ class Index extends Component
 
     public function delete($id)
     {
+        // Hanya admin yang bisa menghapus
+        if (auth()->user()->role !== 'admin') {
+            session()->flash('error', 'Hanya admin yang dapat menghapus data PKL');
+            return;
+        }
+
         PKL::findOrFail($id)->delete();
-        session()->flash('message', 'Data PKL berhasil dihapus.');
+        session()->flash('success', 'Data PKL berhasil dihapus');
     }
 
     public function render()
@@ -30,21 +41,34 @@ class Index extends Component
         $query = PKL::query();
 
         if (!empty($this->search)) {
-            $query->join('siswa', 'pkl.siswa_id', '=', 'siswa.id')
-                  ->join('industri', 'pkl.industri_id', '=', 'industri.id')
-                  ->join('guru', 'pkl.guru_id', '=', 'guru.id')
-                  ->where(function ($q) {
-                      $q->where('siswa.nama', 'like', '%' . $this->search . '%')
-                        ->orWhere('industri.nama', 'like', '%' . $this->search . '%')
-                        ->orWhere('guru.nama', 'like', '%' . $this->search . '%');
-                  });
+            $query->whereHas('siswa', function($q) {
+                    $q->where('nama', 'like', '%'.$this->search.'%');
+                })
+                ->orWhereHas('industri', function($q) {
+                    $q->where('nama', 'like', '%'.$this->search.'%');
+                })
+                ->orWhereHas('guru', function($q) {
+                    $q->where('nama', 'like', '%'.$this->search.'%');
+                });
         }
 
-        $pklList = $query->select('pkl.*')->paginate($this->numpage);
+        $user = auth()->user();
+        $hasSiswa = $user->siswa !== null;
+        $hasPkl = $hasSiswa && $user->siswa->pkl;
+
+        if ($user->role === 'siswa' && $hasSiswa) {
+            $query->where('siswa_id', $user->siswa->id);
+        }
+
+        $pklList = $query->with(['siswa', 'industri', 'guru'])
+                        ->latest('tanggal_mulai')
+                        ->paginate($this->numpage);
 
         return view('livewire.pkl.index', [
             'pklList' => $pklList,
+            'isAdmin' => $user->role === 'admin',
+            'hasSiswa' => $hasSiswa,
+            'hasPkl' => $hasPkl
         ]);
     }
-
 }

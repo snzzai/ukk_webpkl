@@ -15,14 +15,12 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'check.roles' => CheckUserRoles::class,
+            'pkl.access' => \App\Http\Middleware\CheckPKLAccess::class, // Tambahkan ini
         ]);
+        
+        // Hapus yang duplikat
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
-    })
-    ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias([
-            'check.roles' => CheckUserRoles::class,
-        ]);
     })
     ->create();

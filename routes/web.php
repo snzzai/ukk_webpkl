@@ -10,8 +10,8 @@ use App\Livewire\Guru\View as GuruView;
 use App\Livewire\Industri\Form as IndustriForm;
 use App\Livewire\Industri\View as IndustriView;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\PKL\Form as PKLForm;
-use App\Livewire\PKL\View as PKLView;
+use App\Livewire\Pkl\Form as PKLForm;
+use App\Livewire\Pkl\View as PKLView;
 
 Route::get('/', function () {
     return view('welcome');
@@ -37,7 +37,7 @@ Route::view('pkl', 'pkl')
     ->middleware(['auth', 'verified', 'check.roles'])
     ->name('pkl');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified', 'check.roles'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
     Route::get('settings/profile', Profile::class)->name('settings.profile');
@@ -47,17 +47,19 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/siswa/show/{id}', View::class)->name('siswa.show');
     Route::get('/siswa/create', Form::class)->name('siswa.create');
     Route::get('/siswa/edit/{id}', Form::class)->name('siswa.edit');
+    
     Route::get('/guru/show/{id}', GuruView::class)->name('guru.show');
     Route::get('/guru/create', GuruForm::class)->name('guru.create');
     Route::get('/guru/edit/{id}', GuruForm::class)->name('guru.edit');
+    
     Route::get('/industri/show/{id}', IndustriView::class)->name('industri.show');
     Route::get('/industri/create', IndustriForm::class)->name('industri.create');
     Route::get('/industri/edit/{id}', IndustriForm::class)->name('industri.edit');
+    
+    // PKL Routes - TANPA middleware khusus
     Route::get('/pkl/show/{id}', PKLView::class)->name('pkl.show');
     Route::get('/pkl/create', PKLForm::class)->name('pkl.create');
     Route::get('/pkl/edit/{id}', PKLForm::class)->name('pkl.edit');
-
-
 });
 
 require __DIR__.'/auth.php';

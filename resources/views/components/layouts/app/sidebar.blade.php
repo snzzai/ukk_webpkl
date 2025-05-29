@@ -64,6 +64,8 @@
                         <div class="mb-2">
                             <h3 class="text-xs font-semibold text-amber-800 uppercase tracking-wider px-2 py-1 bg-[#ECCDB4]/50 rounded-md">{{ __('Data PKL') }}</h3>
                         </div>
+                        <flux:navlist.item 
+        icon="users" :href="route('guru')" :current="request()->routeIs('guru')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 mx-auto"> {{ __('Guru') }} </flux:navlist.item>
                         <flux:navlist.item icon="building-office-2" :href="route('industri')" :current="request()->routeIs('industri')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 mx-auto">{{ __('Industri') }}</flux:navlist.item>
                         <flux:navlist.item icon="briefcase" :href="route('pkl')" :current="request()->routeIs('pkl')" wire:navigate class="text-amber-800 hover:bg-[#FEA1A1]/20 hover:text-amber-900 rounded-md transition-all duration-200 mx-auto">{{ __('Status PKL') }}</flux:navlist.item>
                 </flux:navlist>
@@ -91,7 +93,7 @@
                             <div class="text-xs text-amber-700">Siswa</div>
                         </div>
                         <div class="bg-white/60 rounded-lg p-2 text-center">
-                            <div class="text-lg font-bold text-[#FEA1A1]">6</div>
+                            <div class="text-lg font-bold text-[#FEA1A1]">8</div>
                             <div class="text-xs text-amber-700">Guru</div>
                         </div>
                     </div>

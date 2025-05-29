@@ -18,7 +18,7 @@ class User extends Authenticatable
 
     public function siswa()
     {
-        return $this->hasOne(Siswa::class);
+        return $this->hasOne(Siswa::class, 'user_id', 'id');
     }
 
     public function guru()
@@ -32,10 +32,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+    'name',
+    'email',
+    'password',
+    'role' // tambahkan ini
     ];
+
+
 
     /**
      * The attributes that should be hidden for serialization.

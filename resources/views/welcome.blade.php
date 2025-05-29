@@ -677,10 +677,10 @@ p.description {
     <h2>Apa Itu READY4PKL?</h2>
     <p>READY4PKL adalah platform pendataan dan pengelolaan PKL yang dirancang khusus untuk siswa, guru, dan pembimbing industri di SMK N 2 Depok. Website ini menjadi sarana utama untuk:<p><br>
     <b><ul>
-      <li>Mengajukan tempat PKL secara online</li>
-      <li>Memonitor status pengajuan dan pelaksanaan PKL</li>
-      <li>Mengelola logbook atau laporan kegiatan harian</li>
-    </ul></b> <br>
+        <li>Mengajukan tempat PKL secara online</li>
+        <li>Memonitor status pengajuan dan pelaksanaan PKL</li>
+        <li>Mengelola logbook atau laporan kegiatan harian</li>
+      </ul></b> <br>
     <p>PKL bukan hanya kewajiban, tapi langkah awal menuju karier profesional. Dengan PKL4SIJA, proses ini menjadi lebih mudah, tertata, dan menyenangkan.
         Mari bersama menciptakan masa depan digital yang cerah, dimulai dari sini.</p>
   </div>

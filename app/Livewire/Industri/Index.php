@@ -14,6 +14,11 @@ class Index extends Component
     public $numpage = 10;
     public $search;
 
+    public function updatingNumpage($value)
+    {
+        $this->resetPage(); // Reset ke halaman pertama saat mengubah jumlah item per halaman
+    }
+
     public function updatingSearch()
     {
         $this->resetPage();

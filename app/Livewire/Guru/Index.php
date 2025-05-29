@@ -13,9 +13,8 @@ class Index extends Component
     use WithPagination;
 
     // Function search
-    public $search;
-
-    // Tidak pakai numpage, karena data guru hanya sedikit. Memang tetap pakai pagination karena diharuskan dari sananya :)
+    public $numpage = 10;
+    public $search = ' ';
 
     public function updatingSearch()
     {
@@ -39,7 +38,12 @@ class Index extends Component
             $query->where('nama', 'like', '%' . $this->search . '%')
                 ->orWhere('nip', 'like', '%' . $this->search . '%');
         }
+        $guruList = $query->paginate($this->numpage);
 
+        return view('livewire.guru.index', [
+            'guruList' => $guruList
+        ]);
+        
         // Get the results after applying the search filter
         $guruList = $query->get();
 
