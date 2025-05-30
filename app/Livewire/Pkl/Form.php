@@ -4,7 +4,7 @@ namespace App\Livewire\Pkl;
 
 use App\Models\Guru;
 use App\Models\Industri;
-use App\Models\PKL;
+use App\Models\Pkl;
 use App\Models\Siswa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -40,7 +40,7 @@ class Form extends Component
         $this->guruList = Guru::all();
 
         if ($id) {
-            $pkl = PKL::findOrFail($id);
+            $pkl = Pkl::findOrFail($id);
             $this->id = $pkl->id;
             $this->siswa_id = $pkl->siswa_id;
             $this->industri_id = $pkl->industri_id;
@@ -89,7 +89,7 @@ class Form extends Component
                 }
                 
                 // Cek apakah sudah punya PKL (kecuali sedang edit)
-                if (PKL::where('siswa_id', $user->siswa->id)
+                if (Pkl::where('siswa_id', $user->siswa->id)
                     ->where('id', '!=', $this->id)
                     ->exists()) {
                     throw new \Exception('Anda sudah membuat laporan PKL sebelumnya');
@@ -107,7 +107,7 @@ class Form extends Component
                 'status' => 'pending'
             ];
 
-            PKL::updateOrCreate(['id' => $this->id], $pklData);
+            Pkl::updateOrCreate(['id' => $this->id], $pklData);
 
             DB::commit();
             session()->flash('success', 'Laporan PKL berhasil ' . ($this->id ? 'diperbarui' : 'dikirim'));

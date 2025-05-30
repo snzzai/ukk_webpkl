@@ -57,9 +57,9 @@ Route::middleware(['auth', 'verified', 'check.roles'])->group(function () {
     Route::get('/industri/edit/{id}', IndustriForm::class)->name('industri.edit');
     
     // PKL Routes - TANPA middleware khusus
-    Route::get('/pkl/show/{id}', PKLView::class)->name('pkl.show');
-    Route::get('/pkl/create', PKLForm::class)->name('pkl.create');
-    Route::get('/pkl/edit/{id}', PKLForm::class)->name('pkl.edit');
+    Route::get('/pkl/show/{id}', PklView::class)->name('pkl.show');
+    Route::get('/pkl/create', PklForm::class)->name('pkl.create');
+    Route::get('/pkl/edit/{id}', PklForm::class)->name('pkl.edit');
 });
 
 require __DIR__.'/auth.php';

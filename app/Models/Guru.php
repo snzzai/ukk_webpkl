@@ -21,7 +21,7 @@ class Guru extends Model
     
     public function pkl()
     {
-        return $this->hasMany(PKL::class);
+        return $this->hasMany(Pkl::class);
     }
 
     public function getKetGenderAttribute()

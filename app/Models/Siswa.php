@@ -15,7 +15,7 @@ class Siswa extends Model
     
     public function pkl()
     {
-        return $this->hasOne(PKL::class);
+        return $this->hasOne(Pkl::class);
     }
 
     // Accessor untuk keterangan gender

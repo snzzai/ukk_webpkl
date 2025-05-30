@@ -75,14 +75,14 @@ class SiswaSeeder extends Seeder
             $email = "{$item['nis']}@sija.com";
             
             // Cari atau buat user
-            $user = \App\Models\User::updateOrCreate(
-                ['email' => $email],
-                [
-                    'name' => $item['nama'],
-                    'password' => bcrypt('password123'), // gunakan password yang lebih kuat
-                    'role' => 'siswa'
-                ]
-            );
+            // $user = \App\Models\User::updateOrCreate(
+            //     ['email' => $email],
+            //     [
+            //         'name' => $item['nama'],
+            //         'password' => bcrypt('password123'), // gunakan password yang lebih kuat
+            //         'role' => 'siswa'
+            //     ]
+            // );
 
             // Buat data siswa
             \App\Models\Siswa::updateOrCreate(

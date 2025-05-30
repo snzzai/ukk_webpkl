@@ -26,7 +26,6 @@
                     <th scope="col" class="px-6 py-3">Alamat</th>
                     <th scope="col" class="px-6 py-3">Kontak</th>
                     <th scope="col" class="px-6 py-3">Guru Pembimbing</th>
-                    <th scope="col" class="px-6 py-3 text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>

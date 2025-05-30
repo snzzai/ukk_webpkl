@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\PKL;
+use App\Models\Pkl;
 use Illuminate\Http\Request;
 
 class PKLController extends Controller
@@ -13,7 +13,7 @@ class PKLController extends Controller
      */
     public function index()
     {
-        return PKL::all();
+        return Pkl::all();
     }
 
     /**
@@ -29,7 +29,7 @@ class PKLController extends Controller
             'selesai' => 'required|date',
         ]);
 
-        PKL::create($request->all());
+        Pkl::create($request->all());
     }
 
     /**
@@ -37,7 +37,7 @@ class PKLController extends Controller
      */
     public function show(string $id)
     {
-        $pkl = PKL::with('siswa', 'guru','industri')->find($id);
+        $pkl = Pkl::with('siswa', 'guru','industri')->find($id);
 
         if (!$pkl) {
             return response()->json(['message' => 'Data PKL tidak ditemukan'], 404);
@@ -56,7 +56,7 @@ class PKLController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $pkl = PKL::find($id);
+        $pkl = Pkl::find($id);
 
         if (!$pkl) {
             return response()->json(['message' => 'Data PKL tidak ditemukan'], 404);
@@ -88,7 +88,7 @@ class PKLController extends Controller
      */
     public function destroy(string $id)
     {
-        $pkl = PKL::find($id);
+        $pkl = Pkl::find($id);
 
         if (!$pkl) {
             return response()->json(['message' => 'Data PKL tidak ditemukan'], 404);

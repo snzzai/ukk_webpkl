@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Pkl;
 
-use App\Models\PKL;
+use App\Models\Pkl;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -32,14 +32,14 @@ class View extends Component
             return;
         }
 
-        PKL::findOrFail($id)->delete();
+        Pkl::findOrFail($id)->delete();
         session()->flash('success', 'Data PKL berhasil dihapus');
         $this->confirmingDelete = null;
     }
 
     public function render()
     {
-        $query = PKL::with(['siswa', 'industri', 'guru']);
+        $query = Pkl::with(['siswa', 'industri', 'guru']);
 
         if ($this->search) {
             $query->whereHas('siswa', function($q) {
