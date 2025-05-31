@@ -60,7 +60,7 @@
                         <th class="py-3 px-4 text-left">Tanggal Selesai</th>
                         <th class="py-3 px-4 text-left">Durasi (hari)</th>
                         <th class="py-3 px-4 text-left">Status</th>
-                        <th class="py-3 px-4 text-left">Aksi</th>
+                        <!-- <th class="py-3 px-4 text-left">Aksi</th> -->
                     </tr>
                 </thead>
                 <tbody class="text-gray-700">
@@ -75,7 +75,7 @@
                             <td class="py-3 px-4">
                                 {{ $pkl->tanggal_mulai->diffInDays($pkl->tanggal_selesai) }}
                             </td>
-                            <td class="py-3 px-4">
+                            <!-- <td class="py-3 px-4">
                                 @php
                                     $statusColors = [
                                         'pending' => 'bg-yellow-100 text-yellow-800',
@@ -85,7 +85,7 @@
                                 @endphp
                                 <span class="px-2 py-1 text-xs rounded-full {{ $statusColors[$pkl->status] ?? 'bg-gray-100 text-gray-800' }}">
                                     {{ ucfirst($pkl->status) }}
-                                </span>
+                                </span> -->
                             </td>
                             <!-- Di bagian tombol aksi -->
                             <td class="py-3 px-4">

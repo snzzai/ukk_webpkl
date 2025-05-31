@@ -718,7 +718,7 @@ p.description {
     <img src="{{ asset('images/oth.jpeg') }}" alt="Shoes and pants flat lay" />
   </div>
   <div class="gallery-item item6">
-    <img src="{{ asset('images/prmk.jpeg') }}" alt="Shirts on hangers" />
+    <img src="{{ asset('images/pkk.jpeg') }}" alt="Shirts on hangers" />
   </div>
   <div class="gallery-item item7">
     <img src="{{ asset('images/kelas_sintaks.jpeg') }}" alt="Colorful flower pattern" />

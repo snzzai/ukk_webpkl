@@ -43,22 +43,6 @@
                             <em>{{ __('Guru Pembimbing Tidak Ditemukan') }}</em>
                         @endif
                     </td>
-                    <td class="px-6 py-3 text-center">
-                        <div x-data="{ open: false }" class="inline-block text-left">
-                            <button @click="open = !open" class="text-gray-600 hover:text-gray-800 focus:outline-none transition duration-200">
-                                &#8942;
-                            </button>
-                            <div x-show="open" x-transition @click.away="open = false"
-                                class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded shadow-md z-50">
-                                <a href="{{ route('industri.show', ['id' => $industri->id]) }}"
-                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-150">View</a>
-                                <a href="{{ route('industri.edit', ['id' => $industri->id]) }}"
-                                   class="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100 transition duration-150">Edit</a>
-                                <button wire:click="delete({{ $industri->id }})"
-                                    class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition duration-150">Hapus</button>
-                            </div>
-                        </div>
-                    </td>
                 </tr>
                 @endforeach
             </tbody>
